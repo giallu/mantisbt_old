@@ -375,3 +375,16 @@ function csv_format_duplicate_id( $p_duplicate_id ) {
 function csv_format_selection( $p_duplicate_id ) {
 	return csv_escape_string( '' );
 }
+
+ 	
+function csv_format_votes_positive( $p_votes_positive ) {
+	return csv_escape_string( $p_votes_positive );
+}
+
+function csv_format_votes_negative( $p_votes_negative ) {
+	return csv_escape_string( $p_votes_negative );
+}
+
+function csv_format_votes_num_voters( $p_votes_num_voters ) {
+	return csv_escape_string( $p_votes_num_voters );
+}

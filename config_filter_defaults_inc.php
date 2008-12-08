@@ -37,7 +37,7 @@
     define( 'FILTER_PROPERTY_RESOLUTION_ID', 'show_resolution' );
     define( 'FILTER_PROPERTY_PRODUCT_BUILD', 'show_build' );
     define( 'FILTER_PROPERTY_PRODUCT_VERSION', 'show_version' );
-
+	define( 'FILTER_PROPERTY_VOTES_USER_ID', 'user_votes' );
     define( 'FILTER_PROPERTY_MONITOR_USER_ID', 'user_monitor' );
     define( 'FILTER_PROPERTY_HIDE_STATUS_ID', 'hide_status' );
     define( 'FILTER_PROPERTY_SORT_FIELD_NAME', 'sort' );
@@ -90,6 +90,7 @@
     define( 'FILTER_SEARCH_PLATFORM', 'platform' );
     define( 'FILTER_SEARCH_OS', 'os' );
     define( 'FILTER_SEARCH_OS_BUILD', 'os_build' );
+    define( 'FILTER_SEARCH_VOTES_USER_ID', 'votes_user_id' );
     define( 'FILTER_SEARCH_MONITOR_USER_ID', 'monitor_user_id' );
     define( 'FILTER_SEARCH_PRODUCT_BUILD', 'product_build' );
     define( 'FILTER_SEARCH_PRODUCT_VERSION', 'product_version' );

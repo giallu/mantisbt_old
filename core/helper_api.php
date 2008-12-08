@@ -299,6 +299,24 @@ function helper_project_specific_where( $p_project_id, $p_user_id = null ) {
 		foreach( $t_topprojects as $t_project ) {
 			$t_project_ids = array_merge( $t_project_ids, user_get_all_accessible_subprojects( $p_user_id, $t_project ) );
 		}
+		
+		$t_enable_voting = config_get( 'voting_enabled' );
+		if ($t_enable_voting == OFF)
+		{
+			$t_keys_to_remove[] = 'votes_total';
+			$t_keys_to_remove[] = 'votes_num_voters';
+			$t_keys_to_remove[] = 'votes_positive';
+			$t_keys_to_remove[] = 'votes_negative';
+		}
+		
+		$t_enable_voting = config_get( 'voting_enabled' );
+		if ($t_enable_voting == OFF)
+		{
+			$t_keys_to_remove[] = 'votes_total';
+			$t_keys_to_remove[] = 'votes_num_voters';
+			$t_keys_to_remove[] = 'votes_positive';
+			$t_keys_to_remove[] = 'votes_negative';
+		}
 
 		$t_project_ids = array_unique( $t_project_ids );
 	} else {

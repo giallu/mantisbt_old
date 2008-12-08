@@ -58,6 +58,10 @@ require_once( $t_core_dir . 'twitter_api.php' );
  */
 require_once( $t_core_dir . 'tag_api.php' );
 /**
+ * requires vote_api
+ */
+require_once( $t_core_dir . 'vote_api.php' );
+/**
  * requires relationship_api
  */
 require_once( $t_core_dir . 'relationship_api.php' );
@@ -93,6 +97,9 @@ class BugData {
 	var $summary = '';
 	var $sponsorship_total = 0;
 	var $sticky = 0;
+	var $votes_positive = 0;
+	var $votes_negative = 0;
+	var $votes_num_voters = 0;
 
 	# omitted:
 	# var $bug_text_id
@@ -870,6 +877,9 @@ function bug_delete( $p_bug_id ) {
 	# Delete all sponsorships
 	sponsorship_delete( sponsorship_get_all_ids( $p_bug_id ) );
 
+	# Delete all votes on this bug
+	vote_delete_issue_votes( $p_bug_id );
+
 	# MASC RELATIONSHIP
 	# we delete relationships even if the feature is currently off.
 	relationship_delete_all( $p_bug_id );
@@ -1044,12 +1054,18 @@ function bug_update( $p_bug_id, $p_bug_data, $p_update_extended = false, $p_bypa
 					view_state=" . db_param() . ",
 					summary=" . db_param() . ",
 					sponsorship_total=" . db_param() . ",
+					votes_num_voters=" . db_param() .",
+					votes_positive=" . db_param() .",
+					votes_negative=" . db_param() .",
 					sticky=" . db_param() . ",
 					due_date=" . db_param() . "
 				WHERE id=" . db_param();
 	$t_fields[] = $c_bug_data->view_state;
 	$t_fields[] = $c_bug_data->summary;
 	$t_fields[] = $c_bug_data->sponsorship_total;
+	$t_fields[] = $c_bug_data->votes_num_voters;
+	$t_fields[] = $c_bug_data->votes_positive;
+	$t_fields[] = $c_bug_data->votes_negative;
 	$t_fields[] = (bool) $c_bug_data->sticky;
 	$t_fields[] = $c_due_date;
 	$t_fields[] = $c_bug_id;
@@ -1082,6 +1098,12 @@ function bug_update( $p_bug_id, $p_bug_data, $p_update_extended = false, $p_bypa
 	history_log_event_direct( $p_bug_id, 'view_state', $t_old_data->view_state, $p_bug_data->view_state );
 	history_log_event_direct( $p_bug_id, 'summary', $t_old_data->summary, $p_bug_data->summary );
 	history_log_event_direct( $p_bug_id, 'sponsorship_total', $t_old_data->sponsorship_total, $p_bug_data->sponsorship_total );
+
+	# @REVIEW should these voting attributes show up in the history?
+	#history_log_event_direct( $p_bug_id, 'votes_num_voters', $t_old_data->votes_num_voters, $p_bug_data->votes_num_voters );
+	#history_log_event_direct( $p_bug_id, 'votes_positive', $t_old_data->votes_positive, $p_bug_data->votes_positive );
+	#history_log_event_direct( $p_bug_id, 'votes_negative', $t_old_data->votes_negative, $p_bug_data->votes_negative );
+			
 	history_log_event_direct( $p_bug_id, 'sticky', $t_old_data->sticky, $p_bug_data->sticky );
 
 	history_log_event_direct( $p_bug_id, 'due_date', ( $t_old_data->due_date != db_unixtimestamp( db_null_date() ) ) ? $t_old_data->due_date : null, ( $p_bug_data->due_date != db_unixtimestamp( db_null_date() ) ) ? $p_bug_data->due_date : null );
@@ -1429,6 +1451,9 @@ function bug_set_field( $p_bug_id, $p_field_name, $p_value ) {
 		case 'view_state':
 		case 'profile_id':
 		case 'sponsorship_total':
+		case 'votes_positive':
+		case 'votes_negative':
+		case 'votes_num_voters':
 			$c_value = (int) $p_value;
 			break;
 

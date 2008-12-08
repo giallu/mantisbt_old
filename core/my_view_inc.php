@@ -94,6 +94,9 @@ $t_default_show_changed = config_get( 'default_show_changed' );
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => META_FILTER_ANY,
 	),
+	'user_votes' => Array ( 
+			'0' => META_FILTER_ANY
+	)
 );
 $url_link_parameters['assigned'] = FILTER_PROPERTY_HANDLER_ID . '=' . $t_current_user_id . '&amp;' . FILTER_PROPERTY_HIDE_STATUS_ID . '=' . $t_bug_resolved_status_threshold;
 
@@ -129,6 +132,9 @@ $c_filter['recent_mod'] = array(
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => META_FILTER_ANY,
 	),
+	'user_votes' => Array ( 
+		'0' => META_FILTER_ANY 
+	)
 );
 $url_link_parameters['recent_mod'] = FILTER_PROPERTY_HIDE_STATUS_ID . '=none';
 
@@ -165,6 +171,10 @@ $c_filter['reported'] = array(
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => META_FILTER_ANY,
 	),
+	'user_votes' => Array ( 
+		'0' => META_FILTER_ANY
+	)
+
 );
 $url_link_parameters['reported'] = FILTER_PROPERTY_REPORTER_ID . '=' . $t_current_user_id . '&amp;' . FILTER_PROPERTY_HIDE_STATUS_ID . '=' . $t_hide_status_default;
 
@@ -200,6 +210,10 @@ $c_filter['resolved'] = array(
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => META_FILTER_ANY,
 	),
+	'user_votes' => Array ( 
+			'0' => META_FILTER_ANY
+	)
+
 );
 $url_link_parameters['resolved'] = FILTER_PROPERTY_STATUS_ID . '=' . $t_bug_resolved_status_threshold . '&amp;' . FILTER_PROPERTY_HIDE_STATUS_ID . '=' . $t_bug_resolved_status_threshold;
 
@@ -235,6 +249,9 @@ $c_filter['unassigned'] = array(
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => META_FILTER_ANY,
 	),
+	'user_votes' => Array ( 
+			'0' => META_FILTER_ANY
+	)
 );
 $url_link_parameters['unassigned'] = FILTER_PROPERTY_HANDLER_ID . '=[none]' . '&amp;' . FILTER_PROPERTY_HIDE_STATUS_ID . '=' . $t_hide_status_default;
 
@@ -272,6 +289,9 @@ $c_filter['monitored'] = array(
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => $t_current_user_id,
 	),
+	'user_votes' => Array ( 
+			'0' => META_FILTER_ANY
+	)
 );
 $url_link_parameters['monitored'] = FILTER_PROPERTY_MONITOR_USER_ID . '=' . $t_current_user_id . '&amp;' . FILTER_PROPERTY_HIDE_STATUS_ID . '=' . $t_hide_status_default;
 
@@ -308,6 +328,9 @@ $c_filter['feedback'] = array(
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => META_FILTER_ANY,
 	),
+	'user_votes' => Array ( 
+			'0' => META_FILTER_ANY
+	)
 );
 $url_link_parameters['feedback'] = FILTER_PROPERTY_REPORTER_ID . '=' . $t_current_user_id . '&amp;' . FILTER_PROPERTY_STATUS_ID . '=' . FEEDBACK . '&amp;' . FILTER_PROPERTY_HIDE_STATUS_ID . '=' . $t_hide_status_default;
 
@@ -343,6 +366,9 @@ $c_filter['verify'] = array(
 	FILTER_PROPERTY_MONITOR_USER_ID => Array(
 		'0' => META_FILTER_ANY,
 	),
+	'user_votes' => Array ( 
+			'0' => META_FILTER_ANY
+	)
 );
 $url_link_parameters['verify'] = FILTER_PROPERTY_REPORTER_ID . '=' . $t_current_user_id . '&amp;' . FILTER_PROPERTY_STATUS_ID . '=' . $t_bug_resolved_status_threshold;
 

@@ -457,6 +457,12 @@ function history_localize_item( $p_field_name, $p_type, $p_old_value, $p_new_val
 					$t_note = lang_get( 'tag_history_renamed' );
 					$t_change = $p_old_value . ' => ' . $p_new_value;
 					break;
+				case BUGVOTE_ADDED:
+					$t_note = lang_get( 'bugvote_added' ) . ": " . $p_old_value;
+					break;
+				case BUGVOTE_DELETED:
+					$t_note = lang_get( 'bugvote_deleted' ) . ": " . $p_old_value;
+					break;
 			}
 	}
 

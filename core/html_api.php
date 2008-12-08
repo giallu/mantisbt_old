@@ -66,6 +66,7 @@ require_once( $t_core_dir . 'authentication_api.php' );
 require_once( $t_core_dir . 'user_api.php' );
 require_once( $t_core_dir . 'rss_api.php' );
 require_once( $t_core_dir . 'wiki_api.php' );
+require_once( $t_core_dir . 'vote_api.php' );
 require_once( $t_core_dir . 'php_api.php' );
 
 $g_rss_feed_url = null;
@@ -814,6 +815,13 @@ function print_manage_menu( $p_page = '' ) {
 				$t_menu_options[] = $t_callback_menu_options;
 			}
 		}
+		
+		if ( ( config_get( 'voting_enabled' ) == ON ) &&
+			 ( access_has_project_level( config_get( 'voting_place_vote_threshold' ) ) ) &&
+			 !current_user_is_anonymous() ) {
+			print_bracket_link( helper_mantis_url( $t_account_voting_page ), lang_get( 'my_votes' ) );
+		}
+		
 	}
 
 	// Plugins menu items
@@ -879,6 +887,7 @@ function print_account_menu( $p_page = '' ) {
 	$t_account_prefs_page = 'account_prefs_page.php';
 	$t_account_profile_menu_page = 'account_prof_menu_page.php';
 	$t_account_sponsor_page = 'account_sponsor_page.php';
+	$t_account_sponsor_page = 'account_voting_page.php';
 	$t_account_manage_columns_page = 'account_manage_columns_page.php';
 
 	switch( $p_page ) {
@@ -893,6 +902,9 @@ function print_account_menu( $p_page = '' ) {
 			break;
 		case $t_account_sponsor_page:
 			$t_account_sponsor_page = '';
+			break;
+		case $t_account_voting_page:
+			$t_account_voting_page = '';
 			break;
 		case $t_account_manage_columns_page:
 			$t_account_manage_columns_page = '';
