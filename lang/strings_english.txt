@@ -317,6 +317,8 @@ $MANTIS_ERROR[ERROR_SESSION_NOT_VALID] = 'Your session has become invalidated.';
 $MANTIS_ERROR[ERROR_FORM_TOKEN_INVALID] = 'Invalid form security token. Did you submit the form twice by accident?';
 $MANTIS_ERROR[ERROR_INVALID_REQUEST_METHOD] = 'This page cannot be accessed using this method.';
 $MANTIS_ERROR[ERROR_INVALID_SORT_FIELD] = 'Invalid sort field.';
+$MANTIS_ERROR[ERROR_VOTING_OVER_LIMIT] = 'not allowed to vote more than your limit, or have a vote with weight 0';
+$MANTIS_ERROR[ERROR_VOTING_NOT_ENABLED] = 'voting is not enabled';
 
 $s_login_error = 'Your account may be disabled or blocked or the username/password you entered is incorrect.';
 $s_login_cookies_disabled = 'Your browser either does not know how to handle cookies, or refuses to handle them.';
@@ -645,6 +647,7 @@ $s_updating_bug_simple_title = 'Updating Issue Information';
 
 # bug_vote_add.php
 $s_vote_added_msg = 'Vote has been added...';
+$s_vote_removed_msg = 'Vote has been removed...';
 
 # bugnote_add.php
 $s_bugnote_added_msg = 'Note added...';
@@ -1547,6 +1550,54 @@ $s_update_columns_as_my_default = 'Update Columns as Default for All Projects';
 $s_reset_columns_configuration = 'Reset Columns Configuration';
 $s_copy_columns_from = 'Copy Columns From';
 $s_copy_columns_to = 'Copy Columns To';
+
+# Voting
+$s_vote_cast_button = 'Cast Vote:';
+$s_vote_delete_button = 'Delete My Vote';
+$s_bugvote_added = 'Vote Added';
+$s_bugvote_deleted = 'Vote Deleted';
+$s_votes_positive = 'Votes Positive';
+$s_votes_negative = 'Votes Negative';
+$s_voted_by = 'Voted By';
+$s_vote_balance = 'Vote Balance';
+$s_vote_num_voters = '# Voters';
+$s_votes_remain = 'votes remaining';
+$s_votes_used = 'votes used';
+$s_voting_this_issue = 'Users voting for this issue';
+$s_votes_num_voters = 'Number of Voters';
+$s_my_votes = 'My Votes';
+$s_own_voted = 'Issues you have voted for:';
+$s_voting_hide = 'Hide Resolved';
+$s_voting_show = 'Show All';
+$s_vote_weight = 'Vote Weight';
+$s_no_votes = 'No votes available';
+$s_voted_and_assigned = 'You voted for this issue and it is now being worked on. You will be able to reuse the voting credits you spent on this issue once it is resolved.';
+$s_voted_and_resolved = 'You voted for this issue, and it is now resolved. Your voting credits have been returned to you.';
+$s_vote_unlimited = 'unlimited';
+
+# Voting
+$s_vote_cast_button = 'Cast Vote:';
+$s_vote_delete_button = 'Delete My Vote';
+$s_bugvote_added = 'Vote Added';
+$s_bugvote_deleted = 'Vote Deleted';
+$s_votes_positive = 'Votes Positive';
+$s_votes_negative = 'Votes Negative';
+$s_voted_by = 'Voted By';
+$s_vote_balance = 'Vote Balance';
+$s_vote_num_voters = '# Voters';
+$s_votes_remain = 'votes remaining';
+$s_votes_used = 'votes used';
+$s_voting_this_issue = 'Users voting for this issue';
+$s_votes_num_voters = 'Number of Voters';
+$s_my_votes = 'My Votes';
+$s_own_voted = 'Issues you have voted for:';
+$s_voting_hide = 'Hide Resolved';
+$s_voting_show = 'Show All';
+$s_vote_weight = 'Vote Weight';
+$s_no_votes = 'No votes available';
+$s_voted_and_assigned = 'You voted for this issue and it is now being worked on. You will be able to reuse the voting credits you spent on this issue once it is resolved.';
+$s_voted_and_resolved = 'You voted for this issue, and it is now resolved. Your voting credits have been returned to you.';
+$s_vote_unlimited = 'unlimited';
 
 # due date
 $s_due_date = 'Due Date';

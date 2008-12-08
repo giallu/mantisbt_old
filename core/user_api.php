@@ -26,6 +26,8 @@ $t_core_dir = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
 
 require_once( $t_core_dir . 'email_api.php' );
 require_once( $t_core_dir . 'ldap_api.php' );
+require_once( $t_core_dir . 'vote_api.php' );
+
 
 # ===================================
 # Caching
@@ -563,6 +565,9 @@ function user_delete( $p_user_id ) {
 	$t_user_table = db_get_table( 'mantis_user_table' );
 
 	user_ensure_unprotected( $p_user_id );
+
+	# Remove any votes the user has made on issues
+	vote_delete_user_votes( $p_user_id );
 
 	# Remove associated profiles
 	user_delete_profiles( $p_user_id );

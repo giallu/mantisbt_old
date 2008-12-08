@@ -421,3 +421,16 @@ function excel_format_custom_field( $p_issue_id, $p_project_id, $p_custom_field 
 	// field is not linked to project
 	return excel_prepare_string( '' );
 }
+
+ 	
+function excel_format_votes_positive( $p_votes_positive ) {
+	return excel_prepare_string( $p_votes_positive );
+}
+
+function excel_format_votes_negative( $p_votes_negative ) {
+	return excel_prepare_string( $p_votes_negative );
+}
+
+function excel_format_votes_num_voters( $p_votes_num_voters ) {
+	return excel_prepare_string( $p_votes_num_voters );
+}

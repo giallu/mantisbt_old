@@ -445,6 +445,9 @@
 <?php
 	$t_mantis_dir = dirname( __FILE__ ) . DIRECTORY_SEPARATOR;
 
+	# User list voting for the bug
+	include( $t_mantis_dir . 'bug_vote_list_view_inc.php' );
+	
 	# User list sponsoring the bug
 	include( $t_mantis_dir . 'bug_sponsorship_list_view_inc.php' );
 

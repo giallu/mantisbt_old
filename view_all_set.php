@@ -193,6 +193,14 @@
 		$f_user_monitor = gpc_get_string( FILTER_PROPERTY_MONITOR_USER_ID, META_FILTER_ANY );
 		$f_user_monitor = array( $f_user_monitor );
 	}
+	
+	$f_user_votes = array();
+	if ( is_array( gpc_get( 'user_votes', null ) ) ) {
+		$f_user_votes = gpc_get_string_array( 'user_votes', META_FILTER_ANY );
+	} else {
+		$f_user_votes = gpc_get_string( 'user_votes', META_FILTER_ANY );
+		$f_user_votes = array( $f_user_votes );
+	}
 
 	$f_note_user_id = array();
     if ( is_array( gpc_get( FILTER_PROPERTY_NOTE_USER_ID, null ) ) ) {
@@ -431,6 +439,7 @@
 				$t_setting_arr[ FILTER_PROPERTY_TARGET_VERSION ] 		= $f_target_version;
 				$t_setting_arr[ FILTER_PROPERTY_PRIORITY_ID ] 			= $f_show_priority;
 				$t_setting_arr[ FILTER_PROPERTY_MONITOR_USER_ID ] 		= $f_user_monitor;
+				$t_setting_arr['user_votes'] 											= $f_user_votes;
 				$t_setting_arr[ FILTER_PROPERTY_VIEW_STATE_ID ] 		= $f_view_state;
 				$t_setting_arr['custom_fields'] 						= $f_custom_fields_data;
 				$t_setting_arr[ FILTER_PROPERTY_SHOW_STICKY_ISSUES ] 	= $f_sticky_issues;
@@ -485,6 +494,7 @@
 				$t_setting_arr[ FILTER_PROPERTY_TARGET_VERSION ]	= array( META_FILTER_ANY );
 				$t_setting_arr[ FILTER_PROPERTY_MONITOR_USER_ID ] 	= array( META_FILTER_ANY );
 				$t_setting_arr[ FILTER_PROPERTY_NOTE_USER_ID ]  	= array( META_FILTER_ANY );
+				$t_setting_arr['user_votes'] 	= array( META_FILTER_ANY );
 				$t_setting_arr[ FILTER_PROPERTY_RELATIONSHIP_TYPE ] = -1;
 				$t_setting_arr[ FILTER_PROPERTY_RELATIONSHIP_BUG ] 	= 0;
 

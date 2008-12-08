@@ -56,6 +56,9 @@ function columns_get_standard() {
 		'selection',
 		'severity',
 		'sponsorship_total',
+		'votes_positive',
+		'votes_negative',
+		'votes_num_voters',
 		'status',
 		'steps_to_reproduce',
 		'summary',
@@ -1132,5 +1135,33 @@ function print_column_target_version( $p_row, $p_columns_target = COLUMNS_TARGET
 		echo $p_row['target_version'];
 	}
 
+	echo '</td>';
+}
+
+
+function print_column_title_votes_total( $p_sort, $p_dir, $p_columns_target = COLUMNS_TARGET_VIEW_PAGE ) {
+	echo '<td>';
+	print_view_bug_sort_link( lang_get( 'vote_balance' ), 'votes_total', $p_sort, $p_dir, $p_columns_target );
+	print_sort_icon( $p_dir, $p_sort, 'votes_total' );
+	echo '</td>';
+}
+
+
+function print_column_title_votes_num_voters( $p_sort, $p_dir, $p_columns_target = COLUMNS_TARGET_VIEW_PAGE ) {
+	echo '<td>';
+	print_view_bug_sort_link( lang_get( 'vote_num_voters' ), 'votes_num_voters', $p_sort, $p_dir, $p_columns_target );
+	print_sort_icon( $p_dir, $p_sort, 'votes_num_voters' );
+	echo '</td>';
+}
+
+function print_column_votes_total( $p_row, $p_columns_target = COLUMNS_TARGET_VIEW_PAGE ) {
+	echo '<td class="right">';
+	echo (($p_row['votes_total']>0)?'+':'')  . $p_row['votes_total'];
+	echo '</td>';
+}
+
+function print_column_votes_num_voters( $p_row, $p_columns_target = COLUMNS_TARGET_VIEW_PAGE ) {
+	echo '<td class="right">';
+	echo $p_row['votes_num_voters'];
 	echo '</td>';
 }

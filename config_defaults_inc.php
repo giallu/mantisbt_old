@@ -813,7 +813,6 @@
 	 */	
 	$g_show_priority_text	= OFF;
 
-
 	/**
 	 * The default columns to be included in the View Issues Page.
 	 * This can be overriden using Manage -> Manage Configuration -> Manage Columns
@@ -831,7 +830,7 @@
 	 * 
 	 * @global array $g_view_issues_page_columns
 	 */	
-	$g_view_issues_page_columns = array ( 'selection', 'edit', 'priority', 'id', 'sponsorship_total', 'bugnotes_count', 'attachment', 'category_id', 'severity', 'status', 'last_updated', 'summary' );
+	$g_view_issues_page_columns = array ( 'selection', 'edit', 'priority', 'id', 'votes_total', 'votes_num_voters', 'sponsorship_total', 'bugnotes_count', 'attachment', 'category_id', 'severity', 'status', 'last_updated', 'summary' );
 	
 	/**
 	 * The default columns to be included in the Print Issues Page.
@@ -839,7 +838,7 @@
 	 * Also each user can configure their own columns using My Account -> Manage Columns
 	 * @global array $g_print_issues_page_columns
 	 */	
-	$g_print_issues_page_columns = array ( 'selection', 'priority', 'id', 'sponsorship_total', 'bugnotes_count', 'attachment', 'category_id', 'severity', 'status', 'last_updated', 'summary' );
+	$g_print_issues_page_columns = array ( 'selection', 'priority', 'id', 'votes_total', 'votes_num_voters', 'sponsorship_total', 'bugnotes_count', 'attachment', 'category_id', 'severity', 'status', 'last_updated', 'summary' );
 
 	/**
 	 * The default columns to be included in the CSV export.
@@ -847,7 +846,7 @@
 	 * Also each user can configure their own columns using My Account -> Manage Columns
 	 * @global array $g_csv_columns
 	 */	
-	$g_csv_columns = array ( 'id', 'project_id', 'reporter_id', 'handler_id', 'priority', 'severity', 'reproducibility', 'version', 'projection', 'category_id', 'date_submitted', 'eta', 'os', 'os_build', 'platform', 'view_state', 'last_updated', 'summary', 'status', 'resolution', 'fixed_in_version' );
+	$g_csv_columns = array ( 'id', 'project_id', 'reporter_id', 'handler_id', 'priority', 'severity', 'reproducibility', 'version', 'projection', 'category_id', 'date_submitted', 'eta', 'os', 'os_build', 'platform', 'view_state', 'last_updated', 'summary', 'status', 'resolution', 'fixed_in_version', 'votes_positive', 'votes_negative', 'votes_num_voters' );
 
 	/**
 	 * The default columns to be included in the Excel export. 
@@ -855,7 +854,7 @@
 	 * Also each user can configure their own columns using My Account -> Manage Columns
 	 * @global array $g_excel_columns
 	 */	
-	$g_excel_columns = array ( 'id', 'project_id', 'reporter_id', 'handler_id', 'priority', 'severity', 'reproducibility', 'version', 'projection', 'category_id', 'date_submitted', 'eta', 'os', 'os_build', 'platform', 'view_state', 'last_updated', 'summary', 'status', 'resolution', 'fixed_in_version' );
+	$g_excel_columns = array ( 'id', 'project_id', 'reporter_id', 'handler_id', 'priority', 'severity', 'reproducibility', 'version', 'projection', 'category_id', 'date_submitted', 'eta', 'os', 'os_build', 'platform', 'view_state', 'last_updated', 'summary', 'status', 'resolution', 'fixed_in_version', 'votes_positive', 'votes_negative', 'votes_num_voters' );
 
 	/**
 	 * show projects when in All Projects mode
@@ -2540,6 +2539,7 @@
 	$g_db_table['mantis_config_table']					= '%db_table_prefix%_config%db_table_suffix%';
 	$g_db_table['mantis_database_table']				= '%db_table_prefix%_database%db_table_suffix%';
 	$g_db_table['mantis_email_table']					= '%db_table_prefix%_email%db_table_suffix%';
+	$g_db_table['mantis_bug_votes_table']			= '%db_table_prefix%_bug_votes%db_table_suffix%';
 
 	/*************************
 	 * MantisBT Enum Strings *
@@ -3392,6 +3392,36 @@
 	 * @global int $g_manage_plugin_threshold
 	 */	
 	$g_manage_plugin_threshold = ADMINISTRATOR;
+	
+	#############################
+	# Voting System
+	#############################
+  
+	# enable or disable the whole voting feature.
+	$g_voting_enabled = ON; 
+	
+	# access level required for users to vote on issues.
+	$g_voting_place_vote_threshold = REPORTER; 
+	
+	# access level required for users to view the users who voted and their votes.
+	$g_voting_view_user_votes_threshold = DEVELOPER;
+	
+	# default number of votes allowed per user
+	$g_voting_default_num_votes = 10; # votes can be set for all user levels as an integer ( set to VOTES_UNLIMITED_VOTES to get unlimited votes )
+	$g_voting_default_num_votes = array( DEVELOPER => 25 , REPORTER => 10 ); # or you can set votes by user type, if a level is not specified then it will use the next lowest level available
+	
+	# default voting weights and thier labels, value needs to be integer, while key is a string eg: '+10 (Highly desired)'
+	$g_voting_weight_options = array('+1'=>1, '+2'=>2, '+5'=>5, '+10'=>10, '-1'=>-1, '-2'=>-2, '-5'=>-5, '-10'=>-10);
+	
+	# the maximum weight a user at a given level may use in a single vote
+	$g_voting_max_vote_weight = 5; #max vote weight can be an integer 
+	$g_voting_max_vote_weight = array( DEVELOPER => 10 , REPORTER => 5 ); # or set by user type, eg: even though a reporter may have 10 votes, they may only use up to weight 5 in a single vote
+	
+	# voting weight that should be initially selected when casting a vote, usually the minimum positive vote
+	$g_voting_weight_default = 1;
+	
+	# whether you get your votes counted per project or globally, if ON then you will get $g_voting_default_num_votes per project, if it is OFF your votes are spread across all projects  
+	$g_voting_per_project = ON;
 
 	/************
 	 * Due Date *
