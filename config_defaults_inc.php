@@ -3407,20 +3407,34 @@
 	$g_voting_view_user_votes_threshold = DEVELOPER;
 	
 	# default number of votes allowed per user
-	$g_voting_default_num_votes = 10; # votes can be set for all user levels as an integer ( set to VOTES_UNLIMITED_VOTES to get unlimited votes )
-	$g_voting_default_num_votes = array( DEVELOPER => 25 , REPORTER => 10 ); # or you can set votes by user type, if a level is not specified then it will use the next lowest level available
+	# votes can be set for all user levels as an integer 
+	# set to VOTES_UNLIMITED_VOTES to get unlimited votes
+	$g_voting_default_num_votes = 10; 
+
+	# You can set votes by user type
+	# if a level is not specified then it will use the next lowest level available
+	# $g_voting_default_num_votes = array( DEVELOPER => 25 , REPORTER => 10 );
 	
-	# default voting weights and thier labels, value needs to be integer, while key is a string eg: '+10 (Highly desired)'
+	# default voting weights and their labels
+	# value needs to be integer, while key is a string eg: '+10 (Highly desired)'
 	$g_voting_weight_options = array('+1'=>1, '+2'=>2, '+5'=>5, '+10'=>10, '-1'=>-1, '-2'=>-2, '-5'=>-5, '-10'=>-10);
 	
 	# the maximum weight a user at a given level may use in a single vote
-	$g_voting_max_vote_weight = 5; #max vote weight can be an integer 
-	$g_voting_max_vote_weight = array( DEVELOPER => 10 , REPORTER => 5 ); # or set by user type, eg: even though a reporter may have 10 votes, they may only use up to weight 5 in a single vote
-	
-	# voting weight that should be initially selected when casting a vote, usually the minimum positive vote
+	# max vote weight can be an integer
+	$g_voting_max_vote_weight = 5;
+
+	# or set by user type, 
+	# eg: even though a reporter may have 10 votes, they may only use 
+	# up to weight 5 in a single vote
+	# $g_voting_max_vote_weight = array( DEVELOPER => 10 , REPORTER => 5 ); 
+
+	# voting weight that should be initially selected when casting a vote
+	# usually the minimum positive vote
 	$g_voting_weight_default = 1;
 	
-	# whether you get your votes counted per project or globally, if ON then you will get $g_voting_default_num_votes per project, if it is OFF your votes are spread across all projects  
+	# whether you get your votes counted per project or globally, 
+	# if ON then you will get $g_voting_default_num_votes per project, 
+	# if OFF your votes are spread across all projects  
 	$g_voting_per_project = ON;
 
 	/************
