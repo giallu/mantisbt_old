@@ -91,8 +91,16 @@ function filter_get_url( $p_custom_filter ) {
 		$t_query[] = filter_encode_field_and_value( FILTER_SEARCH_STATUS_ID, $p_custom_filter[FILTER_PROPERTY_STATUS_ID] );
 	}
 
+	if ( !filter_field_is_any( $p_custom_filter[FILTER_PROPERTY_VOTES_USER_ID] ) ) {
+		$t_query[] = filter_encode_field_and_value( FILTER_SEARCH_VOTES_USER_ID, $p_custom_filter[FILTER_PROPERTY_VOTES_USER_ID] );
+	}
+
 	if( !filter_field_is_any( $p_custom_filter[FILTER_PROPERTY_MONITOR_USER_ID] ) ) {
 		$t_query[] = filter_encode_field_and_value( FILTER_SEARCH_MONITOR_USER_ID, $p_custom_filter[FILTER_PROPERTY_MONITOR_USER_ID] );
+	}
+
+	if ( !filter_field_is_any( $p_custom_filter[FILTER_PROPERTY_VOTES_USER_ID] ) ) {
+		$t_query[] = filter_encode_field_and_value( FILTER_PROPERTY_VOTES_USER_ID, $p_custom_filter[FILTER_PROPERTY_VOTES_USER_ID] );
 	}
 
 	if( !filter_field_is_any( $p_custom_filter[FILTER_PROPERTY_HANDLER_ID] ) ) {
@@ -579,6 +587,7 @@ function filter_ensure_valid_filter( $p_filter_arr ) {
 		FILTER_PROPERTY_FIXED_IN_VERSION => 'string',
 		FILTER_PROPERTY_TARGET_VERSION => 'string',
 		FILTER_PROPERTY_MONITOR_USER_ID => 'int',
+		FILTER_PROPERTY_VOTES_USER_ID => 'int',
 		'show_profile' => 'int',
 	);
 	foreach( $t_multi_select_list as $t_multi_field_name => $t_multi_field_type ) {
@@ -699,6 +708,9 @@ function filter_get_default() {
 		),
 		FILTER_PROPERTY_MONITOR_USER_ID => Array(
 			'0' => META_FILTER_ANY,
+		),
+		FILTER_PROPERTY_VOTES_USER_ID  => Array (
+			'0' => META_FILTER_ANY 
 		),
 		FILTER_PROPERTY_SORT_FIELD_NAME => 'last_updated',
 		FILTER_PROPERTY_SORT_DIRECTION => 'DESC',
@@ -936,6 +948,7 @@ function filter_get_bug_rows( &$p_page_number, &$p_per_page, &$p_page_count, &$p
 	$t_bugnote_text_table = db_get_table( 'mantis_bugnote_text_table' );
 	$t_project_table = db_get_table( 'mantis_project_table' );
 	$t_bug_monitor_table = db_get_table( 'mantis_bug_monitor_table' );
+	$t_bug_votes_table = db_get_table( 'mantis_bug_votes_table' );
 	$t_limit_reporters = config_get( 'limit_reporters' );
 	$t_bug_relationship_table = db_get_table( 'mantis_bug_relationship_table' );
 	$t_report_bug_threshold = config_get( 'report_bug_threshold' );
@@ -1600,6 +1613,34 @@ function filter_get_bug_rows( &$p_page_number, &$p_per_page, &$p_page_count, &$p
 		} else {
 			$t_where_params[] = $t_clauses[0];
 			array_push( $t_where_clauses, "( $t_table_name.user_id=" . db_param() . " )" );
+		}
+	}
+
+	# users voting on an issue
+	$t_select_clauses[] = '(votes_positive - votes_negative) as votes_total'; # @REVIEW is this the correct mantis way to be doing this? votes_total is a derived column
+	if ( !filter_field_is_any( $t_filter[ FILTER_PROPERTY_VOTES_USER_ID ] ) ) {
+		$t_clauses = array();
+		$t_table_name = 'user_votes';
+		array_push( $t_from_clauses, $t_bug_votes_table );
+		array_push( $t_join_clauses, "LEFT JOIN $t_bug_votes_table $t_table_name ON $t_table_name.issue_id = $t_bug_table.id" );
+
+		foreach( $t_filter[FILTER_PROPERTY_VOTES_USER_ID] as $t_filter_member ) {
+			$c_user_monitor = db_prepare_int( $t_filter_member );
+			if ( META_FILTER_MYSELF == $c_user_monitor ) {
+				array_push( $t_clauses, $c_user_id );
+			} else {
+				array_push( $t_clauses, $c_user_monitor );
+			}
+		}
+		if ( 1 < count( $t_clauses ) ) {
+			foreach( $t_clauses as $t_clause ) {
+				$t_where_tmp[] = db_param($t_where_param_count++);
+				$t_where_params[] = $t_clause;
+			}
+			array_push( $t_where_clauses, "( $t_table_name.user_id in (". implode( ', ', $t_where_tmp ) .") )" );
+		} else {
+			$t_where_params[] = $t_clauses[0];
+			array_push( $t_where_clauses, "( $t_table_name.user_id=" . db_param($t_where_param_count++). " )" );
 		}
 	}
 
@@ -2747,10 +2788,13 @@ function filter_draw_selection_area2( $p_page_number, $p_for_screen = true, $p_e
 					<a href="<?php echo $t_filters_url . FILTER_PROPERTY_OS_BUILD;?>" id="os_build_filter"><?php echo lang_get( 'os_version' )?>:</a>
 				<?php } ?>
 			</td>
-			<td class="small-caption" valign="top" colspan="5">
+			<td class="small-caption" valign="top" colspan="4">
 				<?php if ( access_has_global_level( config_get( 'tag_view_threshold' ) ) ) { ?>
 				<a href="<?php echo $t_filters_url . FILTER_PROPERTY_TAG_STRING;?>" id="tag_string_filter"><?php echo lang_get( 'tags' )?>:</a>
 				<?php } ?>
+			</td>
+			<td class="small-caption" valign="top">
+				<a href="<?php PRINT $t_filters_url . 'user_votes[]'; ?>" id="user_votes_filter"><?php PRINT lang_get( 'voted_by' ) ?>:</a>
 			</td>
 			<?php if( $t_filter_cols > 8 ) {
 			echo '<td class="small-caption" valign="top" colspan="' . ( $t_filter_cols - 8 ) . '">&nbsp;</td>';
@@ -2777,7 +2821,7 @@ function filter_draw_selection_area2( $p_page_number, $p_for_screen = true, $p_e
 				<td colspan="3">&nbsp;</td>
 			<?php } ?>
 			
-			<td class="small-caption" valign="top" id="tag_string_filter_target" colspan="5">
+			<td class="small-caption" valign="top" id="tag_string_filter_target" colspan="4">
 				<?php
 					$t_tag_string = $t_filter[FILTER_PROPERTY_TAG_STRING];
 		if( $t_filter[FILTER_PROPERTY_TAG_SELECT] != 0 ) {
@@ -2787,6 +2831,45 @@ function filter_draw_selection_area2( $p_page_number, $p_for_screen = true, $p_e
 		echo $t_tag_string;
 		echo '<input type="hidden" name="', FILTER_PROPERTY_TAG_STRING, '" value="', $t_tag_string, '" />';
 		?>
+			</td>
+			<td class="small-caption" valign="top" id="user_votes_filter_target">
+							<?php
+								$t_output = '';
+								$t_any_found = false;
+								if ( count( $t_filter[FILTER_PROPERTY_VOTES_USER_ID] ) == 0 ) {
+									PRINT lang_get( 'any' );
+								} else {
+									$t_first_flag = true;
+									foreach( $t_filter[FILTER_PROPERTY_VOTES_USER_ID] as $t_current ) {
+										?>
+										<input type="hidden" name="user_votes[]" value="<?php echo $t_current;?>" />
+										<?php
+										$t_this_name = '';
+										if ( ( $t_current === 0 ) || ( is_blank( $t_current ) ) || ( META_FILTER_ANY == $t_current ) ) {
+											$t_any_found = true;
+										} else if ( META_FILTER_MYSELF == $t_current ) {
+											if ( access_has_project_level( config_get( 'monitor_bug_threshold' ) ) ) {
+												$t_this_name = '[' . lang_get( 'myself' ) . ']';
+											} else {
+												$t_any_found = true;
+											}
+										} else {
+											$t_this_name = user_get_name( $t_current );
+										}
+										if ( $t_first_flag != true ) {
+											$t_output = $t_output . '<br />';
+										} else {
+											$t_first_flag = false;
+										}
+										$t_output = $t_output . $t_this_name;
+									}
+									if ( true == $t_any_found ) {
+										PRINT lang_get( 'any' );
+									} else {
+										PRINT $t_output;
+									}
+								}
+							?>
 			</td>
 		</tr>
 		<?php
@@ -3181,6 +3264,7 @@ function filter_draw_selection_area2( $p_page_number, $p_for_screen = true, $p_e
 					</form>
 				<?php
 	}
+	
 
 	if( access_has_project_level( config_get( 'stored_query_create_threshold' ) ) ) {
 		?>
@@ -3280,6 +3364,24 @@ function print_filter_user_monitor() {
 		</select>
 		<?php
 }
+
+	function print_filter_user_votes(){
+		global $t_select_modifier, $t_filter;
+		?>
+		<!-- Voted by -->
+		<select <?php PRINT $t_select_modifier;?> name="user_votes[]">
+			<option value="<?php echo META_FILTER_ANY ?>" <?php check_selected( $t_filter[FILTER_PROPERTY_VOTES_USER_ID], META_FILTER_ANY ); ?>>[<?php echo lang_get( 'any' ) ?>]</option>
+			<?php
+				if ( access_has_project_level( config_get( 'voting_view_user_votes_threshold' ) ) ) {
+					PRINT '<option value="' . META_FILTER_MYSELF . '" ';
+					check_selected( $t_filter[FILTER_PROPERTY_VOTES_USER_ID], META_FILTER_MYSELF );
+					PRINT '>[' . lang_get( 'myself' ) . ']</option>';
+				}
+			?>
+			<?php print_reporter_option_list( $t_filter[FILTER_PROPERTY_VOTES_USER_ID] ) ?>
+		</select>
+		<?php
+	}
 
 /**
  *  print the handler field
