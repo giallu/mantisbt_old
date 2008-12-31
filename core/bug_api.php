@@ -458,7 +458,7 @@ function bug_check_workflow( $p_bug_status, $p_wanted_status ) {
 	# workflow defined - find allowed states
 	$t_allowed_states = $t_status_enum_workflow[$p_bug_status];
 
-	return MantisEnum::hasValue( $t_allowed_states, $p_wanted_status );
+	return Mantis_Enum::hasValue( $t_allowed_states, $p_wanted_status );
 }
 
 # ===================================
@@ -1123,7 +1123,7 @@ function bug_update( $p_bug_id, $p_bug_data, $p_update_extended = false, $p_bypa
 
 		# status changed
 		if( $t_old_data->status != $p_bug_data->status ) {
-			$t_status = MantisEnum::getLabel( config_get( 'status_enum_string' ), $p_bug_data->status );
+			$t_status = Mantis_Enum::getLabel( config_get( 'status_enum_string' ), $p_bug_data->status );
 			$t_status = str_replace( ' ', '_', $t_status );
 			email_generic( $p_bug_id, $t_status, $t_status_prefix . $t_status );
 			return true;

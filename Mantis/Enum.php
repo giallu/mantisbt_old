@@ -28,7 +28,7 @@
  * @package MantisBT
  * @subpackage classes
  */
-class MantisEnum {
+class Mantis_Enum {
 	/**
 	 * Separator that is used to separate the enum values from their labels.
 	 */
@@ -47,14 +47,14 @@ class MantisEnum {
 	 * @return string
 	 */
 	public static function getLabel( $enumString, $value ) {
-		$assocArray = MantisEnum::getAssocArrayIndexedByValues( $enumString );
+		$assocArray = Mantis_Enum::getAssocArrayIndexedByValues( $enumString );
 		$valueAsInteger = (int)$value;
 
 		if ( isset( $assocArray[$valueAsInteger] ) ) {
 			return $assocArray[$valueAsInteger];
 		}
 
-		return MantisEnum::getLabelForUnknownValue( $valueAsInteger );
+		return Mantis_Enum::getLabelForUnknownValue( $valueAsInteger );
 	}
 
 	/**
@@ -69,11 +69,11 @@ class MantisEnum {
 	 * @return the label or the decorated value to represent not found.
 	 */	
 	public static function getLocalizedLabel( $enumString, $localizedEnumString, $value ) {
-		if ( !MantisEnum::hasValue( $enumString, $value ) ) {
-			return MantisEnum::getLabelForUnknownValue( $value );
+		if ( !Mantis_Enum::hasValue( $enumString, $value ) ) {
+			return Mantis_Enum::getLabelForUnknownValue( $value );
 		}
 		
-		return MantisEnum::getLabel( $localizedEnumString, $value );
+		return Mantis_Enum::getLabel( $localizedEnumString, $value );
 	}
 	
 	/**
@@ -84,7 +84,7 @@ class MantisEnum {
 	 * @return integer value of the enum or false if not found.
 	 */
 	public static function getValue( $enumString, $label ) {
-		$assocArrayByLabels = MantisEnum::getAssocArrayIndexedByLabels( $enumString );
+		$assocArrayByLabels = Mantis_Enum::getAssocArrayIndexedByLabels( $enumString );
 
 		if ( isset( $assocArrayByLabels[$label] ) ) {
 			return $assocArrayByLabels[$label];
@@ -101,13 +101,13 @@ class MantisEnum {
 	 * @return associate array indexed by labels.
 	 */
 	public static function getAssocArrayIndexedByValues( $enumString ) {
-		$tuples = MantisEnum::getArrayOfTuples( $enumString );
+		$tuples = Mantis_Enum::getArrayOfTuples( $enumString );
 		$tuplesCount = count( $tuples );
 		
 		$assocArray = array();
 
 		foreach ( $tuples as $tuple ) {
-			$tupleTokens = MantisEnum::getArrayForTuple( $tuple );
+			$tupleTokens = Mantis_Enum::getArrayForTuple( $tuple );
 
 			# if not a proper tuple, skip.
 			if ( count( $tupleTokens ) != 2 ) {
@@ -137,7 +137,7 @@ class MantisEnum {
 	 * @return associate array indexed by labels.
 	 */
 	public static function getAssocArrayIndexedByLabels( $enumString ) {
-		return array_flip( MantisEnum::getAssocArrayIndexedByValues( $enumString ) );
+		return array_flip( Mantis_Enum::getAssocArrayIndexedByValues( $enumString ) );
 	}
 
 	/**
@@ -147,7 +147,7 @@ class MantisEnum {
 	 * @return array of unique values.
 	 */
 	public static function getValues( $enumString ) {
-		return array_unique( array_keys( MantisEnum::getAssocArrayIndexedByValues( $enumString ) ) );
+		return array_unique( array_keys( Mantis_Enum::getAssocArrayIndexedByValues( $enumString ) ) );
 	}
 
 	/**
@@ -158,7 +158,7 @@ class MantisEnum {
 	 * @return bool true if found, false otherwise.
 	 */	
 	public static function hasValue( $enumString, $value ) {
-		$assocArray = MantisEnum::getAssocArrayIndexedByValues( $enumString );	
+		$assocArray = Mantis_Enum::getAssocArrayIndexedByValues( $enumString );	
 		$valueAsInteger = (int)$value;
 		return isset( $assocArray[$valueAsInteger] );
 	}
@@ -174,7 +174,7 @@ class MantisEnum {
 			return array();			
 		}
 
-		$rawArray = explode( MantisEnum::TUPLE_SEPARATOR, $enumString );
+		$rawArray = explode( Mantis_Enum::TUPLE_SEPARATOR, $enumString );
 		$trimmedArray = array();
 
 		foreach ( $rawArray as $tuple ) {
@@ -192,7 +192,7 @@ class MantisEnum {
 	 * @return array array(value, label)
 	 */
 	private static function getArrayForTuple( $tuple ) {
-		return explode( MantisEnum::VALUE_LABEL_SEPARATOR, $tuple );
+		return explode( Mantis_Enum::VALUE_LABEL_SEPARATOR, $tuple );
 	}
 
 	/**

@@ -763,7 +763,7 @@ function summary_print_developer_resolution( $p_resolution_enum_string ) {
 	$t_user_id = auth_get_current_user_id();
 
 	# Get the resolution values ot use
-	$c_res_s = MantisEnum::getValues( $p_resolution_enum_string );
+	$c_res_s = Mantis_Enum::getValues( $p_resolution_enum_string );
 	$enum_res_count = count( $c_res_s );
 
 	$specific_where = helper_project_specific_where( $t_project_id );
@@ -868,7 +868,7 @@ function summary_print_reporter_resolution( $p_resolution_enum_string ) {
 	$t_user_id = auth_get_current_user_id();
 
 	# Get the resolution values ot use
-	$c_res_s = MantisEnum::getValues( $p_resolution_enum_string );
+	$c_res_s = Mantis_Enum::getValues( $p_resolution_enum_string );
 	$enum_res_count = count( $c_res_s );
 
 	# Checking if it's a per project statistic or all projects
@@ -995,11 +995,11 @@ function summary_print_reporter_effectiveness( $p_severity_enum_string, $p_resol
 	$t_notbug_multiplier[NOT_A_BUG] = 5;
 
 	# Get the severity values ot use
-	$c_sev_s = MantisEnum::getValues( $p_severity_enum_string );
+	$c_sev_s = Mantis_Enum::getValues( $p_severity_enum_string );
 	$enum_sev_count = count( $c_sev_s );
 
 	# Get the resolution values ot use
-	$c_res_s = MantisEnum::getValues( $p_resolution_enum_string );
+	$c_res_s = Mantis_Enum::getValues( $p_resolution_enum_string );
 	$enum_res_count = count( $c_res_s );
 
 	# Checking if it's a per project statistic or all projects

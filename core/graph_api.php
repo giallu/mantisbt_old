@@ -375,7 +375,7 @@ function create_bug_enum_summary( $p_enum_string, $p_enum ) {
 	$specific_where = " AND " . helper_project_specific_where( $t_project_id, $t_user_id );
 
 	$t_metrics = array();
-	$t_assoc_array = MantisEnum::getAssocArrayIndexedByValues( $p_enum_string );
+	$t_assoc_array = Mantis_Enum::getAssocArrayIndexedByValues( $p_enum_string );
 
 	foreach ( $t_assoc_array as $t_value => $t_label  ) {
 		$query = "SELECT COUNT(*)
@@ -399,7 +399,7 @@ function enum_bug_group( $p_enum_string, $p_enum ) {
 	$t_clo_val = CLOSED;
 	$specific_where = " AND " . helper_project_specific_where( $t_project_id, $t_user_id );
 
-	$t_array_indexed_by_enum_values = MantisEnum::getAssocArrayIndexedByValues( $p_enum_string );
+	$t_array_indexed_by_enum_values = Mantis_Enum::getAssocArrayIndexedByValues( $p_enum_string );
 	$enum_count = count( $t_array_indexed_by_enum_values );
 	foreach ( $t_array_indexed_by_enum_values as $t_value => $t_label ) {
 		# Calculates the number of bugs opened and puts the results in a table

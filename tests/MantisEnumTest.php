@@ -25,10 +25,10 @@
 require_once 'PHPUnit/Framework.php';
 
 $t_root_path = dirname( dirname( __FILE__ ) )  . DIRECTORY_SEPARATOR;
-require_once $t_root_path . 'core/classes/MantisEnum.class.php';
+require_once $t_root_path . 'Mantis/Enum.php';
 
 /**
- * Test cases for MantisEnum class.
+ * Test cases for Mantis_Enum class.
  */
 class MantisEnumTest extends PHPUnit_Framework_TestCase {
 	const ACCESS_LEVELS_ENUM = '10:viewer,25:reporter,40:updater,55:developer,70:manager,90:administrator';
@@ -44,15 +44,15 @@ class MantisEnumTest extends PHPUnit_Framework_TestCase {
 	 * Tests getLabel() method.
 	 */
 	public function testGetLabel() {    	
-		$this->assertEquals( 'viewer', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 10 ) );
-		$this->assertEquals( 'reporter', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 25 ) );
-		$this->assertEquals( 'updater', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 40 ) );
-		$this->assertEquals( 'developer', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 55 ) );
-		$this->assertEquals( 'manager', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 70 ) );
-		$this->assertEquals( 'administrator', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 90 ) );
-		$this->assertEquals( '@100@', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 100 ) );
-		$this->assertEquals( '@-1@', MantisEnum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, -1 ) );
-        $this->assertEquals( '@10@', MantisEnum::getLabel( MantisEnumTest::EMPTY_ENUM, 10 ) );
+		$this->assertEquals( 'viewer', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 10 ) );
+		$this->assertEquals( 'reporter', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 25 ) );
+		$this->assertEquals( 'updater', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 40 ) );
+		$this->assertEquals( 'developer', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 55 ) );
+		$this->assertEquals( 'manager', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 70 ) );
+		$this->assertEquals( 'administrator', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 90 ) );
+		$this->assertEquals( '@100@', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, 100 ) );
+		$this->assertEquals( '@-1@', Mantis_Enum::getLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, -1 ) );
+        $this->assertEquals( '@10@', Mantis_Enum::getLabel( MantisEnumTest::EMPTY_ENUM, 10 ) );
 	}
     
 	/**
@@ -60,109 +60,109 @@ class MantisEnumTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetLocalizedLabel() {    	
 		// Test existing case
-		$this->assertEquals( 'viewer_x', MantisEnum::getLocalizedLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, MantisEnumTest::ACCESS_LEVELS_LOCALIZED_ENUM, 10 ) );
+		$this->assertEquals( 'viewer_x', Mantis_Enum::getLocalizedLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, MantisEnumTest::ACCESS_LEVELS_LOCALIZED_ENUM, 10 ) );
 		
 		// Test unknown case
-		$this->assertEquals( '@5@', MantisEnum::getLocalizedLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, MantisEnumTest::ACCESS_LEVELS_LOCALIZED_ENUM, 5 ) );
+		$this->assertEquals( '@5@', Mantis_Enum::getLocalizedLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, MantisEnumTest::ACCESS_LEVELS_LOCALIZED_ENUM, 5 ) );
 
 		// Test the case where the value is in the localized enum but not the standard one.  In this case it should be treated
 		// as unknown.
-		$this->assertEquals( '@95@', MantisEnum::getLocalizedLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, MantisEnumTest::ACCESS_LEVELS_LOCALIZED_ENUM, 95 ) );
+		$this->assertEquals( '@95@', Mantis_Enum::getLocalizedLabel( MantisEnumTest::ACCESS_LEVELS_ENUM, MantisEnumTest::ACCESS_LEVELS_LOCALIZED_ENUM, 95 ) );
 	}
     
 	/**
 	 * Tests getValues() method.
 	 */
 	public function testGetValues() {
-		$this->assertEquals( array( 10, 25, 40, 55, 70,90 ), MantisEnum::getValues( MantisEnumTest::ACCESS_LEVELS_ENUM, 10 ) );
-		$this->assertEquals( array(), MantisEnum::getValues( MantisEnumTest::EMPTY_ENUM, 10 ) );
+		$this->assertEquals( array( 10, 25, 40, 55, 70,90 ), Mantis_Enum::getValues( MantisEnumTest::ACCESS_LEVELS_ENUM, 10 ) );
+		$this->assertEquals( array(), Mantis_Enum::getValues( MantisEnumTest::EMPTY_ENUM, 10 ) );
 	}
 
 	/**
 	 * Tests getAssocArrayIndexedByValues() method.
 	 */
 	public function testGetAssocArrayIndexedByValues() {
-		$this->assertEquals( array(), MantisEnum::getAssocArrayIndexedByValues( MantisEnumTest::EMPTY_ENUM ) );
-		$this->assertEquals( array( 10 => 'viewer' ), MantisEnum::getAssocArrayIndexedByValues( MantisEnumTest::SINGLE_VALUE_ENUM ) );
-		$this->assertEquals( array( 10 => 'viewer1' ), MantisEnum::getAssocArrayIndexedByValues( MantisEnumTest::DUPLICATE_VALUES_ENUM ) );
-		$this->assertEquals( array( 10 => 'viewer', 20 => 'viewer' ), MantisEnum::getAssocArrayIndexedByValues( MantisEnumTest::DUPLICATE_LABELS_ENUM ) );
-		$this->assertEquals( array( 10 => 'first label', 20 => 'second label' ), MantisEnum::getAssocArrayIndexedByValues( MantisEnumTest::NAME_WITH_SPACES_ENUM ) );
+		$this->assertEquals( array(), Mantis_Enum::getAssocArrayIndexedByValues( MantisEnumTest::EMPTY_ENUM ) );
+		$this->assertEquals( array( 10 => 'viewer' ), Mantis_Enum::getAssocArrayIndexedByValues( MantisEnumTest::SINGLE_VALUE_ENUM ) );
+		$this->assertEquals( array( 10 => 'viewer1' ), Mantis_Enum::getAssocArrayIndexedByValues( MantisEnumTest::DUPLICATE_VALUES_ENUM ) );
+		$this->assertEquals( array( 10 => 'viewer', 20 => 'viewer' ), Mantis_Enum::getAssocArrayIndexedByValues( MantisEnumTest::DUPLICATE_LABELS_ENUM ) );
+		$this->assertEquals( array( 10 => 'first label', 20 => 'second label' ), Mantis_Enum::getAssocArrayIndexedByValues( MantisEnumTest::NAME_WITH_SPACES_ENUM ) );
 	}
 
 	/**
 	 * Tests getAssocArrayIndexedByLabels() method.
 	 */
 	public function testGetAssocArrayIndexedByLabels() {
-		$this->assertEquals( array(), MantisEnum::getAssocArrayIndexedByLabels( MantisEnumTest::EMPTY_ENUM ) );
-		$this->assertEquals( array( 'viewer' => 10 ), MantisEnum::getAssocArrayIndexedByLabels( MantisEnumTest::SINGLE_VALUE_ENUM ) );
-		$this->assertEquals( array( 'viewer1' => 10 ), MantisEnum::getAssocArrayIndexedByLabels( MantisEnumTest::DUPLICATE_VALUES_ENUM ) );
-		$this->assertEquals( array( 'viewer' => 10, 'viewer' => 20 ), MantisEnum::getAssocArrayIndexedByLabels( MantisEnumTest::DUPLICATE_LABELS_ENUM ) );
-		$this->assertEquals( array( 'first label' => 10, 'second label' => 20 ), MantisEnum::getAssocArrayIndexedByLabels( MantisEnumTest::NAME_WITH_SPACES_ENUM ) );
+		$this->assertEquals( array(), Mantis_Enum::getAssocArrayIndexedByLabels( MantisEnumTest::EMPTY_ENUM ) );
+		$this->assertEquals( array( 'viewer' => 10 ), Mantis_Enum::getAssocArrayIndexedByLabels( MantisEnumTest::SINGLE_VALUE_ENUM ) );
+		$this->assertEquals( array( 'viewer1' => 10 ), Mantis_Enum::getAssocArrayIndexedByLabels( MantisEnumTest::DUPLICATE_VALUES_ENUM ) );
+		$this->assertEquals( array( 'viewer' => 10, 'viewer' => 20 ), Mantis_Enum::getAssocArrayIndexedByLabels( MantisEnumTest::DUPLICATE_LABELS_ENUM ) );
+		$this->assertEquals( array( 'first label' => 10, 'second label' => 20 ), Mantis_Enum::getAssocArrayIndexedByLabels( MantisEnumTest::NAME_WITH_SPACES_ENUM ) );
 	}
 
 	/**
 	 * Tests getValue() method.
 	 */
 	public function testGetValue() {
-		$this->assertEquals( false, MantisEnum::getValue( MantisEnumTest::EMPTY_ENUM, 'viewer' ) );
-		$this->assertEquals( 10, MantisEnum::getValue( MantisEnumTest::SINGLE_VALUE_ENUM, 'viewer' ) );
-		$this->assertEquals( 10, MantisEnum::getValue( MantisEnumTest::DUPLICATE_VALUES_ENUM, 'viewer1' ) );
-		$this->assertEquals( 20, MantisEnum::getValue( MantisEnumTest::NAME_WITH_SPACES_ENUM, 'second label' ) );
+		$this->assertEquals( false, Mantis_Enum::getValue( MantisEnumTest::EMPTY_ENUM, 'viewer' ) );
+		$this->assertEquals( 10, Mantis_Enum::getValue( MantisEnumTest::SINGLE_VALUE_ENUM, 'viewer' ) );
+		$this->assertEquals( 10, Mantis_Enum::getValue( MantisEnumTest::DUPLICATE_VALUES_ENUM, 'viewer1' ) );
+		$this->assertEquals( 20, Mantis_Enum::getValue( MantisEnumTest::NAME_WITH_SPACES_ENUM, 'second label' ) );
 		
 		// This is not inconsisent with duplicate values behavior, however, it is considered correct since it simplies the code
 		// and it is not a real scenario.
-		$this->assertEquals( 20, MantisEnum::getValue( MantisEnumTest::DUPLICATE_LABELS_ENUM, 'viewer' ) );
+		$this->assertEquals( 20, Mantis_Enum::getValue( MantisEnumTest::DUPLICATE_LABELS_ENUM, 'viewer' ) );
 	}
 
 	/**
 	 * Tests hasValue() method.
 	 */
 	public function testHasValue() {
-		$this->assertEquals( true, MantisEnum::hasValue( MantisEnumTest::ACCESS_LEVELS_ENUM, 10 ) );
-		$this->assertEquals( false, MantisEnum::hasValue( MantisEnumTest::ACCESS_LEVELS_ENUM, 5 ) );
-		$this->assertEquals( false, MantisEnum::hasValue( MantisEnumTest::EMPTY_ENUM, 10 ) );
+		$this->assertEquals( true, Mantis_Enum::hasValue( MantisEnumTest::ACCESS_LEVELS_ENUM, 10 ) );
+		$this->assertEquals( false, Mantis_Enum::hasValue( MantisEnumTest::ACCESS_LEVELS_ENUM, 5 ) );
+		$this->assertEquals( false, Mantis_Enum::hasValue( MantisEnumTest::EMPTY_ENUM, 10 ) );
 	}
 
 	/**
 	 * Tests enumerations that contain duplicate values.
 	 */
 	public function testDuplicateValuesEnum() {    	
-		$this->assertEquals( 'viewer1', MantisEnum::getLabel( MantisEnumTest::DUPLICATE_VALUES_ENUM, 10 ) );
-		$this->assertEquals( '@100@', MantisEnum::getLabel( MantisEnumTest::DUPLICATE_VALUES_ENUM, 100 ) );
+		$this->assertEquals( 'viewer1', Mantis_Enum::getLabel( MantisEnumTest::DUPLICATE_VALUES_ENUM, 10 ) );
+		$this->assertEquals( '@100@', Mantis_Enum::getLabel( MantisEnumTest::DUPLICATE_VALUES_ENUM, 100 ) );
 	}
 
 	/**
 	 * Tests enumerations that contain duplicate labels.
 	 */
 	public function testDuplicateLabelsValuesEnum() {    	
-		$this->assertEquals( 'viewer', MantisEnum::getLabel( MantisEnumTest::DUPLICATE_LABELS_ENUM, 10 ) );
-		$this->assertEquals( 'viewer', MantisEnum::getLabel( MantisEnumTest::DUPLICATE_LABELS_ENUM, 20 ) );
-		$this->assertEquals( '@100@', MantisEnum::getLabel( MantisEnumTest::DUPLICATE_LABELS_ENUM, 100 ) );
+		$this->assertEquals( 'viewer', Mantis_Enum::getLabel( MantisEnumTest::DUPLICATE_LABELS_ENUM, 10 ) );
+		$this->assertEquals( 'viewer', Mantis_Enum::getLabel( MantisEnumTest::DUPLICATE_LABELS_ENUM, 20 ) );
+		$this->assertEquals( '@100@', Mantis_Enum::getLabel( MantisEnumTest::DUPLICATE_LABELS_ENUM, 100 ) );
 	}
 
 	/**
 	 * Tests enumerations with a single tuple.
 	 */
 	public function testSingleValueEnum() {    	
-		$this->assertEquals( 'viewer', MantisEnum::getLabel( MantisEnumTest::SINGLE_VALUE_ENUM, 10 ) );
-		$this->assertEquals( '@100@', MantisEnum::getLabel( MantisEnumTest::SINGLE_VALUE_ENUM, 100 ) );
+		$this->assertEquals( 'viewer', Mantis_Enum::getLabel( MantisEnumTest::SINGLE_VALUE_ENUM, 10 ) );
+		$this->assertEquals( '@100@', Mantis_Enum::getLabel( MantisEnumTest::SINGLE_VALUE_ENUM, 100 ) );
 	}
 
 	/**
 	 * Tests enumerations with labels that contain spaces.
 	 */
 	public function testNameWithSpacesEnum() {    	
-		$this->assertEquals( 'first label', MantisEnum::getLabel( MantisEnumTest::NAME_WITH_SPACES_ENUM, 10 ) );
-		$this->assertEquals( 'second label', MantisEnum::getLabel( MantisEnumTest::NAME_WITH_SPACES_ENUM, 20 ) );
-		$this->assertEquals( '@100@', MantisEnum::getLabel( MantisEnumTest::NAME_WITH_SPACES_ENUM, 100 ) );
+		$this->assertEquals( 'first label', Mantis_Enum::getLabel( MantisEnumTest::NAME_WITH_SPACES_ENUM, 10 ) );
+		$this->assertEquals( 'second label', Mantis_Enum::getLabel( MantisEnumTest::NAME_WITH_SPACES_ENUM, 20 ) );
+		$this->assertEquals( '@100@', Mantis_Enum::getLabel( MantisEnumTest::NAME_WITH_SPACES_ENUM, 100 ) );
 	}
     
 	/**
 	 * Tests enumerations that contain duplicate labels.
 	 */
 	public function testNonTrimmedEnum() {    	
-		$this->assertEquals( 'viewer', MantisEnum::getLabel( MantisEnumTest::NON_TRIMMED_ENUM, 10 ) );
-		$this->assertEquals( 'reporter', MantisEnum::getLabel( MantisEnumTest::NON_TRIMMED_ENUM, 20 ) );
-		$this->assertEquals( '@100@', MantisEnum::getLabel( MantisEnumTest::NON_TRIMMED_ENUM, 100 ) );
+		$this->assertEquals( 'viewer', Mantis_Enum::getLabel( MantisEnumTest::NON_TRIMMED_ENUM, 10 ) );
+		$this->assertEquals( 'reporter', Mantis_Enum::getLabel( MantisEnumTest::NON_TRIMMED_ENUM, 20 ) );
+		$this->assertEquals( '@100@', Mantis_Enum::getLabel( MantisEnumTest::NON_TRIMMED_ENUM, 100 ) );
 	}
 }

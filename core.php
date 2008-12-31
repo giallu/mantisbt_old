@@ -95,16 +95,12 @@
 			$className = 'MantisFormattingPlugin';	
 		}
 
-		if ( strpos( '_', $className ) ) {
-			$t_class_path = str_replace( '_', DIRECTORY_SEPARATOR, $className );
+		if ( strpos( $className, '_' ) ) {
+			$t_require_path = str_replace( '_', DIRECTORY_SEPARATOR, $className ) . '.php';
 		} else {
-			$t_class_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR . $className;
+			$t_require_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR . $className . '.class.php';
 		}
 
-		$t_require_path = $t_class_path . '.class.php';
-
-		$t_require_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR . $className . '.class.php';
-		
 		if ( file_exists( $t_require_path ) ) {
 			require_once( $t_require_path );
 			return;

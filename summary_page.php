@@ -360,7 +360,7 @@
 				<?php echo lang_get( 'reporter_by_resolution' ) ?>
 			</td>
 			<?php
-			$t_resolutions = MantisEnum::getValues( config_get( 'resolution_enum_string' ) );
+			$t_resolutions = Mantis_Enum::getValues( config_get( 'resolution_enum_string' ) );
 
 			foreach ( $t_resolutions as $t_resolution ) {
 				echo '<td>', get_enum_element( 'resolution', $t_resolution ), '</td>';
@@ -383,7 +383,7 @@
 				<?php echo lang_get( 'developer_by_resolution' ) ?>
 			</td>
 			<?php
-			$t_resolutions = MantisEnum::getValues( config_get( 'resolution_enum_string' ) );
+			$t_resolutions = Mantis_Enum::getValues( config_get( 'resolution_enum_string' ) );
 
 			foreach ( $t_resolutions as $t_resolution ) {
 				echo '<td>', get_enum_element( 'resolution', $t_resolution ), '</td>';

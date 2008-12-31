@@ -192,7 +192,7 @@ function mci_get_enum_element( $p_enum_name, $p_val, $p_lang ) {
 	$t_enum_string = config_get( $p_enum_name . '_enum_string' );
 	$t_localized_enum_string = lang_get( $p_enum_name . '_enum_string', $p_lang );
 
-	return MantisEnum::getLocalizedLabel( $t_enum_string, $t_localized_enum_string, $p_val );
+	return Mantis_Enum::getLocalizedLabel( $t_enum_string, $t_localized_enum_string, $p_val );
 }
 
 # Gets the sub-projects that are accessible to the specified user / project.
