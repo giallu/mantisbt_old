@@ -66,7 +66,7 @@
 			list( $t_from, $t_to ) = split( ':', $t_transition );
 			$t_matrix[$t_from][$t_to] = '';
 		}
-		$t_statuses = MantisEnum::getAssocArrayIndexedByValues( config_get( 'status_enum_string' ) );
+		$t_statuses = Mantis_Enum::getAssocArrayIndexedByValues( config_get( 'status_enum_string' ) );
 		foreach( $t_statuses as $t_state => $t_label) {
 			$t_workflow_row = '';
 			$t_default = gpc_get_int( 'default_' . $t_state );

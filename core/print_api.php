@@ -834,7 +834,7 @@ function print_enum_string_option_list( $p_enum_name, $p_val = 0 ) {
 	$t_config_var_name = $p_enum_name . '_enum_string';
 	$t_config_var_value = config_get( $t_config_var_name );
 	
-	$t_enum_values = MantisEnum::getValues( $t_config_var_value );
+	$t_enum_values = Mantis_Enum::getValues( $t_config_var_value );
 
 	foreach ( $t_enum_values as $t_key ) {
 		$t_elem2 = get_enum_element( $p_enum_name, $t_key );
@@ -855,14 +855,14 @@ function get_status_option_list( $p_user_auth = 0, $p_current_value = 0, $p_show
 
 	if( count( $t_enum_workflow ) < 1 ) {
 		# workflow not defined, use default enum
-		$t_enum_values = MantisEnum::getValues( $t_config_var_value );
+		$t_enum_values = Mantis_Enum::getValues( $t_config_var_value );
 	} else {
 		# workflow defined - find allowed states
 		if( isset( $t_enum_workflow[$p_current_value] ) ) {
-			$t_enum_values = MantisEnum::getValues( $t_enum_workflow[$p_current_value] );
+			$t_enum_values = Mantis_Enum::getValues( $t_enum_workflow[$p_current_value] );
 		} else {
 			# workflow was not set for this status, this shouldn't happen
-			$t_enum_values = MantisEnum::getValues( $t_config_var_value );
+			$t_enum_values = Mantis_Enum::getValues( $t_config_var_value );
 		}
 	}
 
@@ -905,7 +905,7 @@ function print_status_option_list( $p_select_label, $p_current_value = 0, $p_all
 		}
 		echo '</select>';
 	} else {
-		echo MantisEnum::getLabel( 'status_enum_string', $p_current_value );
+		echo Mantis_Enum::getLabel( 'status_enum_string', $p_current_value );
 	}
 }
 
@@ -927,7 +927,7 @@ function print_project_access_levels_option_list( $p_val, $p_project_id = null )
 	echo "<option value=\"" . DEFAULT_ACCESS_LEVEL . "\"";
 	echo ">[" . lang_get( 'default_access_level' ) . "]</option>";
 
-	$t_enum_values = MantisEnum::getValues( $t_access_levels_enum_string );
+	$t_enum_values = Mantis_Enum::getValues( $t_access_levels_enum_string );
 
 	foreach ( $t_enum_values as $t_enum_value ) {
 		# a user must not be able to assign another user an access level that is higher than theirs.

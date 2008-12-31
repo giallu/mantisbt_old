@@ -60,7 +60,7 @@ function helper_alternate_class( $p_index = null, $p_odd_class = "row-1", $p_eve
 # --------------------
 # get the color string for the given status
 function get_status_color( $p_status ) {
-	$t_status_label = MantisEnum::getLabel( config_get( 'status_enum_string' ), $p_status );
+	$t_status_label = Mantis_Enum::getLabel( config_get( 'status_enum_string' ), $p_status );
 	$t_status_colors = config_get( 'status_colors' );
 	$t_color = '#ffffff';
 
@@ -77,7 +77,7 @@ function get_enum_element( $p_enum_name, $p_val ) {
 	$config_var = config_get( $p_enum_name . '_enum_string' );
 	$string_var = lang_get( $p_enum_name . '_enum_string' );
 	
-	return MantisEnum::getLocalizedLabel( $config_var, $string_var, $p_val );
+	return Mantis_Enum::getLocalizedLabel( $config_var, $string_var, $p_val );
 }
 
 # --------------------

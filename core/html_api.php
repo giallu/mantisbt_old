@@ -991,8 +991,8 @@ function html_status_legend() {
 	echo '<table class="width100" cellspacing="1">';
 	echo '<tr>';
 
-	$t_status_array = MantisEnum::getAssocArrayIndexedByValues( config_get( 'status_enum_string' ) );
-	$t_status_names = MantisEnum::getAssocArrayIndexedByValues( lang_get( 'status_enum_string' ) );
+	$t_status_array = Mantis_Enum::getAssocArrayIndexedByValues( config_get( 'status_enum_string' ) );
+	$t_status_names = Mantis_Enum::getAssocArrayIndexedByValues( lang_get( 'status_enum_string' ) );
 	$enum_count = count( $t_status_array );
 
 	# read through the list and eliminate unused ones for the selected project
@@ -1050,7 +1050,7 @@ function html_status_percentage_legend() {
 		$t_bug_count += $row['number'];
 	}
 
-	$t_enum_values = MantisEnum::getValues( config_get( 'status_enum_string' ) );
+	$t_enum_values = Mantis_Enum::getValues( config_get( 'status_enum_string' ) );
 	$enum_count = count( $t_enum_values );
 
 	if( $t_bug_count > 0 ) {

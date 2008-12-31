@@ -172,7 +172,7 @@ function mci_explode_to_objectref( $p_config_enum_string ) {
 	
 	$t_result = array();
 
-	$t_assoc_array = MantisEnum::getAssocArrayIndexedByValues( $p_config_enum_string );
+	$t_assoc_array = Mantis_Enum::getAssocArrayIndexedByValues( $p_config_enum_string );
 
 	foreach ( $t_assoc_array as $t_id => $t_name ) {
 		$t_result[] = array(
@@ -208,7 +208,7 @@ function mci_enum_get_array_by_id( $p_enum_id, $p_enum_type, $p_lang ) {
  * @return The id corresponding to the given label, or 0 if not found.
  */
 function mci_get_enum_value_from_label( $p_enum_string, $p_label ) {
-	$t_value = MantisEnum::getValue( $p_enum_string, $p_label );
+	$t_value = Mantis_Enum::getValue( $p_enum_string, $p_label );
 	if ( $t_value === false ) {
 		return 0;
 	}

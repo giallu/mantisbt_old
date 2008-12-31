@@ -58,7 +58,7 @@
 
 	$t_valid_actions[] = 'relationship';
 
-	$t_statuses = MantisEnum::getAssocArrayIndexedByValues( config_get( 'status_enum_string' ) );
+	$t_statuses = Mantis_Enum::getAssocArrayIndexedByValues( config_get( 'status_enum_string' ) );
     ksort( $t_statuses );
     reset( $t_statuses );
 
