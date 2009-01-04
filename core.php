@@ -90,8 +90,13 @@
 	function __autoload( $className ) {
 		global $g_core_path;
 
-		$t_require_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR . $className . '.class.php';
+		# Adjust for non-standard filenames.
+		if ( $className == 'MantisCoreFormattingPlugin' ) {
+			$className = 'MantisFormattingPlugin';	
+		}
 
+		$t_require_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR . $className . '.class.php';
+		
 		if ( file_exists( $t_require_path ) ) {
 			require_once( $t_require_path );
 			return;
@@ -103,7 +108,6 @@
 			require_once( $t_require_path );
 			return;
 		}
-
 	}
 
 	if ( ($t_output = ob_get_contents()) != '') {

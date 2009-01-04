@@ -170,7 +170,7 @@ function auth_prepare_password( $p_password ) {
  * true is returned.  If $p_perm_login is true, the long-term
  * cookie is created.
  * @param string $p_username a prepared username
- * @param string $p_password a prepared password
+ * @param string $p_password a prepared password, or null to bypass password authentication (e.g. open id)
  * @param bool $p_perm_login whether to create a long-term cookie
  * @return bool indicates if authentication was successful
  * @access public
@@ -220,7 +220,7 @@ function auth_attempt_login( $p_username, $p_password, $p_perm_login = false ) {
 	if( !(( ON == $t_anon_allowed ) && ( $t_anon_account == $p_username ) ) ) {
 		# anonymous login didn't work, so check the password
 
-		if( !auth_does_password_match( $t_user_id, $p_password ) ) {
+		if ( $p_password !== null && !auth_does_password_match( $t_user_id, $p_password ) ) {
 			user_increment_failed_login_count( $t_user_id );
 			return false;
 		}

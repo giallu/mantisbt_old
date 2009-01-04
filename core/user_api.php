@@ -630,6 +630,31 @@ function user_get_id_by_name( $p_username ) {
 	}
 }
 
+# --------------------
+# Get list of user ids with the specified email address.  Only enabled users are returned.
+# returns false if non found, or associative array with key = user id and value = name.
+function user_get_id_name_map_by_email( $p_email ) {
+	$t_user_table = db_get_table( 'mantis_user_table' );
+
+	$query = "SELECT id, username
+				  FROM $t_user_table
+				  WHERE email=" . db_param() .
+				  " AND enabled = 1";
+	$result = db_query_bound( $query, array( $p_email ) );
+
+	if( 0 == db_num_rows( $result ) ) {
+		return false;
+	} else {
+		$t_user_ids = array();
+
+		while ( $row = db_fetch_array( $result ) ) {
+			$t_user_ids[(integer)$row['id']] = $row['username'];
+		}
+
+		return $t_user_ids;
+	}
+}
+
 # Get a user id from an email address
 function user_get_id_by_email( $p_email ) {
 	global $g_cache_user;
@@ -641,7 +666,8 @@ function user_get_id_by_email( $p_email ) {
 
 	$query = "SELECT *
 				  FROM $t_user_table
-				  WHERE email=" . db_param();
+				  WHERE email=" . db_param() .
+				  "ORDER BY access_level DESC";
 	$result = db_query_bound( $query, Array( $p_email ) );
 
 	if( 0 == db_num_rows( $result ) ) {

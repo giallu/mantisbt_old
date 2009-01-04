@@ -247,6 +247,39 @@
     </section>
 
     <section>
+        <title>Open Id</title>
+
+        <variablelist>
+            <varlistentry>
+                <term>$g_openid_enabled</term>
+                <listitem>
+                    <para>Controls whether Open Id authentication should be supported or not (ON: enabled, OFF: disabled). Default is OFF.
+                    </para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>$g_openid_api_key</term>
+                <listitem>
+                    <para>
+                        The RpxNow API key for the site.  Note that each site should be registered separately
+                        and get its own api key, otherwise, user logins will be mixed up.  This is because the
+                        mapping between the open ids and MantisBT database id is stored in rpxnow.
+                    </para>
+                    <para>Register on <ulink url="https://rpxnow.com">https://rpxnow.com.</ulink> and create
+                    a site to get the API key.</para>
+                </listitem>
+            </varlistentry>
+            <varlistentry>
+                <term>$g_openid_site_name</term>
+                <listitem>
+                    <para>The name of the site as registered on <ulink url="https://rpxnow.com">https://rpxnow.com.</ulink>.
+                    </para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </section>
+
+    <section>
         <title>Email</title>
 
         <variablelist>

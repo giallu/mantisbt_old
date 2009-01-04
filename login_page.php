@@ -32,6 +32,8 @@
 		print_header_redirect( config_get( 'default_home_page' ) );
 	}
 
+	$t_core_path = config_get( 'core_path' );
+
 	$f_error		= gpc_get_bool( 'error' );
 	$f_cookie_error	= gpc_get_bool( 'cookie_error' );
 	$f_return		= gpc_get_string( 'return', '' );
@@ -51,6 +53,8 @@
 		print_header_redirect( $t_uri );
 		exit;
 	}
+	
+	$t_open_id_enabled = MantisOpenId::isEnabled();
 
 	# Login page shouldn't be indexed by search engines
 	html_robots_noindex();
@@ -135,6 +139,15 @@
 	print_signup_link();
 	echo '&nbsp;';
 	print_lost_password_link();
+	
+	if ( $t_open_id_enabled ) {
+		echo '<br /><br /><br />';
+		echo '<table border="0"><tr>';
+		echo '<td>', MantisOpenId::getSignInLink( '<img src="images/openid.png" width="50" height="50" border="0" />' ), '</td>';
+		echo '<td>', MantisOpenId::getSignInLink( lang_get( 'login_using_openid' ) ), '<br /><a href="http://openid.net/get/">', lang_get( 'get_a_new_openid' ), '</a></td>';
+		echo '</tr></table>';
+	}
+
 	echo '</div>';
 
 	#
@@ -221,6 +234,12 @@
 		}
 
 	} # if 'admin_checks'
+?>
+
+<?php
+	if ( $t_open_id_enabled ) {
+		echo MantisOpenId::getLoginScript();
+	}
 ?>
 
 <!-- Autofocus JS -->

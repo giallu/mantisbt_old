@@ -33,6 +33,41 @@
     </section>
 
     <section>
+        <title>Open Id</title>
+
+        <para>MantisBT can be configured to accept open ids in addition to other supported login schemes.  The open id support allows new and existng users to log into MantisBT using
+        any open id identity provider, this includes but is not limited to the following:
+        	<itemizedlist>
+        		<listitem>My Open Id</listitem>
+        		<listitem>Google</listitem>
+        		<listitem>Yahoo</listitem>
+        		<listitem>AOL</listitem>
+        		<listitem>Verisign</listitem>
+        		<listitem>Blogspot</listitem>
+        		<listitem>Flickr</listitem>
+        		<listitem>WordPress.com</listitem>
+        		<listitem>Live Journal</listitem>
+        	</itemizedlist>
+		</para>
+
+		<para>A user may use more than one Open Id to login into the same MantisBT account as long as these ids have an associated email address that matches the user's account.</para>
+
+		<para>When a user logs in via an Open Id the following steps occur:
+            <itemizedlist>
+                <listitem>If the open id was used to login into MantisBT before, then the internal user id is retrieved from the open id and the user is logged in.</listitem>
+                <listitem>If the open id was associated with a user that was deleted, then the user is re-created (if signup is enabled).</listitem>
+                <listitem>If the open id is associated with a disabled user, then user is not allowed to login.</listitem>
+                <listitem>If none of the above, then all matching enabled users with the same email address are retrieved.  A user with the same exact user name / email gets higher priority, if not,
+                then the user with the highest access level is used.</listitem>
+                <listitem>If no matches are found based on the email and signup is enabled, then a new user is created.</listitem>
+                <listitem>If none of the above, then the user is redirected back to the login page.</listitem>
+            </itemizedlist>
+        </para>
+
+        <para>The MantisBT Open Id implementation is based on the service provided by <ulink url="https://rpxnow.com">https://rpxnow.com.</ulink>.</para> 
+    </section>
+
+    <section>
         <title>LDAP</title>
 
         <para>Functionality is provided by using the php-ldap module

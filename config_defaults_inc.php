@@ -3409,3 +3409,23 @@
 	 */	
 	$g_due_date_view_threshold = NOBODY;
 
+	/******************
+	 * OpenID via rpxnow.com (https://rpxnow.com/)
+	 *******************/
+
+	/**
+	 * Enable/disable open id support.
+	 */
+	$g_openid_enabled = OFF;
+	
+	/**
+	 * The RpxNow API key for the site.  Note that each site should be registered separately
+	 * and get its own api key, otherwise, user logins will be mixed up.  This is because the
+	 * mapping between the open ids and MantisBT database id is stored in rpxnow.
+	 */
+	$g_openid_api_key = '';
+
+	/**
+	 * The name of the site that is registered with rpxnow.
+	 */
+	$g_openid_site_name = '';
