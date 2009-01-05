@@ -3415,6 +3415,8 @@
 
 	/**
 	 * Enable/disable open id support.
+	 * 
+	 * Note that this feature has a dependency on the PHP curl extension.
 	 */
 	$g_openid_enabled = OFF;
 	

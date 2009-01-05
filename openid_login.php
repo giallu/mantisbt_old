@@ -128,7 +128,7 @@
 				$t_password = auth_generate_random_password( $t_seed );
 	
 				# Create the user
-				$t_cookie = user_create( $t_username, $t_password, $t_email, /* access_level */ null, /* $p_protected */ false, /* $p_enabled */ true, $t_real_name );
+				$t_cookie = user_create( $t_username, $t_password, $t_email, /* access_level */ null, /* $p_protected */ false, /* $p_enabled */ true, $t_real_name, /* $p_send_verification_email */ false );
 				if ( $t_cookie !== false ) {
 					$t_user_id = user_get_id_by_name( $t_username );
 				}
