@@ -64,7 +64,10 @@
             </itemizedlist>
         </para>
 
-        <para>The MantisBT Open Id implementation is based on the service provided by <ulink url="https://rpxnow.com">https://rpxnow.com.</ulink>.</para> 
+        <para>The MantisBT Open Id implementation is based on the service provided by <ulink url="https://rpxnow.com">https://rpxnow.com.</ulink>.  Hence, administrators will need
+        to register for a free account, add their site and update the MantisBT configuration accordingly.</para>
+
+        <para>Note that the Open Id support requires the PHP curl extension to be available.</para> 
     </section>
 
     <section>

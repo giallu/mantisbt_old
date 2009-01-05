@@ -119,6 +119,10 @@ class APIException extends Exception
  * A class that interacts with the RpxNow service.  This is based on
  * the PHP sample supplied on their website, but changes to use
  * SimpleXml rather than taking a dependency on XML DOM.
+ * 
+ * This class was also modified to use the $g_openid_ca_bundle
+ * configuration option to provide curl with the certificates
+ * bundle.
  */
 class RPX {
     var $api_key = null;
@@ -246,6 +250,10 @@ class RPX {
         curl_setopt($curl, CURLOPT_WRITEFUNCTION,
                     array(&$this, "_writeResponseData"));
 
+        $ca = config_get( 'openid_ca_bundle' );
+        if ($ca != '') {
+            curl_setopt($curl, CURLOPT_CAINFO, $ca); // Set the location of the CA-bundle
+        }
         curl_exec($curl);
 
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);

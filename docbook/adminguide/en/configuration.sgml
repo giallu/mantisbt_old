@@ -276,6 +276,14 @@
                     </para>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term>$g_openid_ca_bundle</term>
+                <listitem>
+                    <para>SSL CA Certificate Bundle.  If you get "Error performing HTTP request: SSL certificate problem, verify that the CA cert is OK.",
+                    see <ulink url="http://curl.haxx.se/docs/caextract.html">http://curl.haxx.se/docs/caextract.html</ulink> to create a recent certificate file.
+                    </para>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </section>
 

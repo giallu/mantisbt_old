@@ -3429,3 +3429,11 @@
 	 * The name of the site that is registered with rpxnow.
 	 */
 	$g_openid_site_name = '';
+
+	/**
+	 * SSL CA Certificate Bundle.
+	 * If you get "Error performing HTTP request: SSL certificate problem, verify that the CA cert is OK.",
+	 * see http://curl.haxx.se/docs/caextract.html to create a recent certificate file.
+	 *
+	 */
+	$g_openid_ca_bundle = '';
