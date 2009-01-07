@@ -209,6 +209,20 @@
 		</td>
 	</tr>
 
+<?php if ( config_get( 'openid_enabled' ) === ON ) { ?>
+	<!-- OpenID -->
+	<tr <?php echo helper_alternate_class() ?>>
+		<td class="category">OpenID</td>
+		<td>
+			<input type="text" size="32" name="openid_identifier" value="<?php echo string_attribute( $u_openid ) ?>" />
+		</td>
+	</tr>
+<?php } ?>
+
+	<tr>
+		<td class="form-title" colspan="2"><?php echo lang_get('additional_information') ?></td>
+	</tr>
+
 	<!-- Access level -->
 	<tr <?php echo helper_alternate_class() ?>>
 		<td class="category">

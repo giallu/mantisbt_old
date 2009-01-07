@@ -43,7 +43,7 @@
 	$f_realname        	= gpc_get_string( 'realname', '' );
 	$f_password        	= gpc_get_string( 'password', '' );
 	$f_password_confirm	= gpc_get_string( 'password_confirm', '' );
-
+	$f_openid = gpc_get_string('openid_identifier','');
 	$f_email = email_append_domain( $f_email );
 
 	email_ensure_not_disposable( $f_email );
@@ -86,6 +86,8 @@
 			}
 		}
 	}
+
+	user_set_field( $t_user_id, 'openid', $f_openid);
 
 	form_security_purge('account_update');
 

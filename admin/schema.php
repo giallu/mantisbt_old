@@ -411,3 +411,6 @@ $upgrade[] = Array( 'AddColumnSQL', Array( db_get_table( 'mantis_bug_table' ), "
 $upgrade[] = Array( 'AddColumnSQL', Array( db_get_table( 'mantis_custom_field_table' ), "
   filter_by 		L 		NOTNULL DEFAULT \" '1' \"" ) );
 
+#84
+$upgrade[] =  Array( 'AddColumnSQL', Array( db_get_table( 'mantis_user_table' ), "
+openid C(128) NULL" ) );

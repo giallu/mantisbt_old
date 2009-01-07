@@ -33,15 +33,7 @@ class MantisOpenId
 	 * @returns true: enabled, false: otherwise.
 	 */
 	public static function isEnabled() {
-		if ( config_get( 'openid_enabled' ) != ON ) {
-			return false;
-		}
-		
-		if ( is_blank( config_get( 'openid_api_key' ) ) || is_blank( config_get( 'openid_site_name' ) ) ) {
-			return false;
-		}
-		
-		return true;		
+		return config_get( 'openid_enabled' ) === ON;		
 	}
 
 	/**

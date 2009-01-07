@@ -34,6 +34,14 @@
 
 	$t_core_path = config_get( 'core_path' );
 
+	if ( isset( $_GET['openid_mode'] ) && $_GET['openid_mode'] == "id_res" ) {
+		require_once( 'Zend/OpenId/Consumer.php' );
+		$consumer = new Zend_OpenId_Consumer();
+		if ( $consumer->verify($_GET, $id) ) {
+				$status = "VALID";
+		}
+	}
+
 	$f_error		= gpc_get_bool( 'error' );
 	$f_cookie_error	= gpc_get_bool( 'cookie_error' );
 	$f_return		= gpc_get_string( 'return', '' );
@@ -54,8 +62,6 @@
 		exit;
 	}
 	
-	$t_open_id_enabled = MantisOpenId::isEnabled();
-
 	# Login page shouldn't be indexed by search engines
 	html_robots_noindex();
 
@@ -125,29 +131,42 @@
 		<input type="checkbox" name="perm_login" />
 	</td>
 </tr>
-<tr>
 	<td class="center" colspan="2">
 		<input type="submit" class="button" value="<?php echo lang_get( 'login_button' ) ?>" />
 	</td>
 </tr>
 </table>
 </form>
+<br />
+
+<?php if ( config_get( 'openid_enabled' ) === ON ) { ?>
+<form name="openid_login_form" method="post" action="openid_login.php">
+<table class="width50" cellspacing="1">
+<tr class="form-title">
+	<td class="form-title" colspan="2"><?php echo lang_get( 'login_using_openid' ) ?></td>
+</tr>
+<tr class="row-1">
+	<td class="category">OpenID</td>
+	<td width="75%"><input size="32" type="text" name="openid_identifier"></td>
+<tr>
+</tr>
+	<td class="center" colspan="2">
+		<input type="submit" name="openid_action" class="button" value="<?php echo lang_get( 'login_button' ) ?>" />
+	</td>
+</tr>
+
+</table>
+</form>
+<?php } ?>
+
 </div>
+
 
 <?php
 	echo '<br /><div align="center">';
 	print_signup_link();
 	echo '&nbsp;';
 	print_lost_password_link();
-	
-	if ( $t_open_id_enabled ) {
-		echo '<br /><br /><br />';
-		echo '<table border="0"><tr>';
-		echo '<td>', MantisOpenId::getSignInLink( '<img src="images/openid.png" width="50" height="50" border="0" />' ), '</td>';
-		echo '<td>', MantisOpenId::getSignInLink( lang_get( 'login_using_openid' ) ), '<br /><a href="http://openid.net/get/">', lang_get( 'get_a_new_openid' ), '</a></td>';
-		echo '</tr></table>';
-	}
-
 	echo '</div>';
 
 	#
@@ -234,12 +253,6 @@
 		}
 
 	} # if 'admin_checks'
-?>
-
-<?php
-	if ( $t_open_id_enabled ) {
-		echo MantisOpenId::getLoginScript();
-	}
 ?>
 
 <!-- Autofocus JS -->

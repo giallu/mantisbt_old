@@ -28,83 +28,66 @@
 
 	$t_core_path = config_get( 'core_path' );
 
-	if ( !function_exists( 'curl_setopt' ) ) {
-		echo "curl extension not installed.";
-		exit;
-	}
 
-	if ( !function_exists( 'simplexml_load_string' ) ) {
-		echo "simplexml extension not installed.";
-		exit;
-	}
-	
-	$f_token = gpc_get_string( 'token', '' );
-
-	# The token will be blank if the user pressed cancel and doesn't login with user id.
-	# In this case or if open id is disabled, then re-direct back to the login page.
-	if ( is_blank( $f_token ) || !MantisOpenId::isEnabled() ) {
+	if ( config_get( 'openid_enabled' ) !== ON ) {
+		# if open id is disabled, then re-direct back to the login page.
 		print_header_redirect( 'login_page.php' );
 		exit;
 	}
 
-	$t_api_key = config_get( 'openid_api_key' );
-	$t_url = 'https://' . config_get( 'openid_site_name' ) . '.rpxnow.com/';
+	require_once( 'Zend/OpenId/Consumer.php' );
 
-	$rpx = new RPX( $t_api_key, $t_url );
-
-	try
-	{
-		$t_auth_info = $rpx->auth_info( $f_token );
+	$status = "";
+	if ( isset( $_POST['openid_action'] ) &&
+		$_POST['openid_action'] == "Login" &&
+		! empty($_POST['openid_identifier'] ) ) {
+		$consumer = new Zend_OpenId_Consumer();
+		if ( !$consumer->login( $_POST['openid_identifier'] ) ) {
+			$status = "OpenID login failed.<br>";
+		}
+	} else if ( isset( $_GET['openid_mode'] ) ) {
+		if ( $_GET['openid_mode'] == "id_res" ) {
+			$consumer = new Zend_OpenId_Consumer();
+			if ( $consumer->verify($_GET, $t_openid) ) {
+				$status = 'VALID';
+			} else {
+				$status = 'INVALID';
+			}
+		} else if ( $_GET['openid_mode'] == "cancel" ) {
+			$status = 'CANCELED';
+		}
 	}
-	catch (Exception $ex)
-	{
-		echo $ex->getMessage();
+	
+	if ( $status !== 'VALID' ) {
+		print_header_redirect( 'login_page.php' );
 		exit;
 	}
 
+	$t_user_id = user_get_id_by_openid( $t_openid );
+	
+	if ( $t_user_id === false ) {
+		# openID was valid, but no user is associated with it
+		# redirect to login page, asking to fill in the login form or create a new user
+		print_header_redirect( 'openid_login_page.php?openid_identifier=' . rawurlencode( $t_openid ) );
+		exit;
+	}
+	else {
+		$t_username = user_get_field( $t_user_id, 'username' );
+
+	# try to acquire user data
 	$t_display_name = (string)$t_auth_info->profile->displayName;
 	$t_email = (string)$t_auth_info->profile->email;
 	$t_identifier = (string)$t_auth_info->profile->identifier;
-	$t_username = (string)$t_auth_info->profile->preferredUsername;
 	$t_url = (string)$t_auth_info->profile->url;
 	$t_primary_key = (string)$t_auth_info->profile->primaryKey;
 
-	# ignore mapping
-	#if ( !is_blank( $t_primary_key ) ) {
-	#	$rpx->unmap( $t_identifier, $t_primary_key );
-	#	$t_primary_key = '';
-	#}
-	
-	$t_user_id = 0;
-
-	# if the user is already associated with the open id used for login, then use the mapped user id.
-	if ( !is_blank( $t_primary_key ) ) {
-		$t_user_id = (integer)$t_primary_key;
-
-		if ( !user_exists( $t_user_id ) ) {
-			# user was deleted from the database, do the unmapping.
-			try
-			{
-				$rpx->unmap( $t_identifier, $t_primary_key );
-			}
-			catch (Exception $ex)
-			{
-				// the unmapping is cleanup work, if fails, then continue.
-			}
-
-			$t_user_id = 0;
-		} else {
-			$t_username = user_get_field( $t_user_id, 'username' );
-		}
-	}
-
-	# Either there was no previous mapping or the previous mapping was referring to a deleted user.
 	if ( $t_user_id == 0 ) {
 		# Use the email address for getting matching ids.
 		$t_map = user_get_id_name_map_by_email( $t_email );
 
 		# If no matches, then create a new user.
 		if ( $t_map === false || ( count( $t_map ) == 0 ) ) {
+
 			# Only create users if signup is allowed.			
 			if ( config_get( 'allow_signup' ) == ON ) {
 				# If display name is available to us and is different than user name, then use display name
@@ -151,22 +134,9 @@
 			}
 		}
 
-		# If a user id is found/created, then update rpxnow.		
-		if ( $t_user_id != 0 ) {
-			try
-			{
-				# register the mapping from open id to user id in rpxnow so next time it is
-				# available without any database lookups.
-				$rpx->map( $t_identifier, $t_user_id );
-			}
-			catch (Exception $ex)
-			{
-				echo $ex->getMessage();
-				exit;
-			}
-		}
 	}
-
+	}
+	
 	# log in the matched user id (if any).
 	if ( $t_user_id == 0 ) {
 		$t_logged_in = false;

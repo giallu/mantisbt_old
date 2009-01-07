@@ -630,6 +630,32 @@ function user_get_id_by_name( $p_username ) {
 	}
 }
 
+# get a user id from an openid
+#  return false if no user is associated with the given openid
+function user_get_id_by_openid( $p_openid ) {
+	global $g_cache_user;
+	if( $t_user = user_search_cache( 'openid', $p_openid ) ) {
+		return $t_user['id'];
+	}
+
+	$t_user_table = db_get_table( 'mantis_user_table' );
+
+	$query = "SELECT *
+				  FROM $t_user_table
+				  WHERE openid=" . db_param();
+	$result = db_query_bound( $query, Array( $p_openid ) );
+
+	if( 0 == db_num_rows( $result ) ) {
+		return false;
+	} else {
+	# \todo: make sure only one result come from here.
+		$row = db_fetch_array( $result );
+		user_cache_database_result( $row );
+		return $row['id'];
+	}
+}
+
+
 # --------------------
 # Get list of user ids with the specified email address.  Only enabled users are returned.
 # returns false if non found, or associative array with key = user id and value = name.

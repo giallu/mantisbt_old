@@ -86,6 +86,9 @@
 	
 	$g_core_path = $t_core_path;
 
+	# Add core to include path
+	set_include_path( $t_core_path . PATH_SEPARATOR . get_include_path() );
+
 	# Define an autoload function to automatically load classes when referenced.
 	function __autoload( $className ) {
 		global $g_core_path;
