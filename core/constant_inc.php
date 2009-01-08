@@ -357,9 +357,6 @@ define( 'ERROR_FORM_TOKEN_INVALID', 2800 );
 define( 'ERROR_VOTING_NOT_ENABLED', 2900 );
 define( 'ERROR_VOTING_OVER_LIMIT', 2901 );
 
-# voting 
-define('VOTES_UNLIMITED_VOTES', -1);
-
 # Status Legend Position
 define( 'STATUS_LEGEND_POSITION_TOP', 1 );
 define( 'STATUS_LEGEND_POSITION_BOTTOM', 2 );
