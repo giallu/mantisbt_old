@@ -417,9 +417,4 @@ $upgrade[] = Array( 'CreateTableSQL', Array( db_get_table( 'mantis_bug_votes_tab
 	user_id			I		UNSIGNED NOTNULL PRIMARY DEFAULT '0',
 	weight			I		NOTNULL DEFAULT '1'
 	", Array( 'mysql' => 'TYPE=MyISAM', 'pgsql' => 'WITHOUT OIDS' ) ) );
-$upgrade[] = Array( 'AddColumnSQL', Array( db_get_table( 'mantis_bug_table' ), "
-	votes_positive		I		UNSIGNED NOTNULL DEFAULT '0',
-	votes_negative		I		UNSIGNED NOTNULL DEFAULT '0',
-	votes_num_voters	I		UNSIGNED NOTNULL DEFAULT '0'
-	" ) );
 $upgrade[] = Array('CreateIndexSQL',Array('idx_votes_num_voters',db_get_table('mantis_bug_table'),'votes_num_voters'));
