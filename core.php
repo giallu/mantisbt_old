@@ -96,7 +96,8 @@
 		}
 
 		if ( strpos( $className, '_' ) ) {
-			$t_require_path = str_replace( '_', DIRECTORY_SEPARATOR, $className ) . '.php';
+			$t_base_path = $g_core_path . '..' . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR;
+			$t_require_path = $t_base_path . str_replace( '_', DIRECTORY_SEPARATOR, $className ) . '.php';
 		} else {
 			$t_require_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR . $className . '.class.php';
 		}
