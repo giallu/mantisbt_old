@@ -36,8 +36,15 @@
 
 	ob_start();
 
+	define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application/'));
+	set_include_path( 
+		APPLICATION_PATH . '/../library'
+		. PATH_SEPARATOR . get_include_path()
+	);
+
+	
 	# Include compatibility file before anything else
-	require_once( dirname( __FILE__ ).DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'php_api.php' );
+	require_once( APPLICATION_PATH . '/core/php_api.php' );
 
 	# Check if Mantis is down for maintenance
 	#
@@ -55,18 +62,18 @@
 
 
 	# Load constants and configuration files
-  	require_once( dirname( __FILE__ ).DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'constant_inc.php' );
+  	require_once( APPLICATION_PATH . '/core/constant_inc.php' );
   	
-	if ( file_exists( dirname( __FILE__ ).DIRECTORY_SEPARATOR.'custom_constant_inc.php' ) ) {
-		require_once( dirname( __FILE__ ).DIRECTORY_SEPARATOR.'custom_constant_inc.php' );
+	if ( file_exists( 'custom_constant_inc.php' ) ) {
+		require_once( 'custom_constant_inc.php' );
 	}
 
 	$t_config_inc_found = false;
 
-	require_once( dirname( __FILE__ ).DIRECTORY_SEPARATOR.'config_defaults_inc.php' );
+	require_once( 'config_defaults_inc.php' );
 	# config_inc may not be present if this is a new install
-	if ( file_exists( dirname( __FILE__ ).DIRECTORY_SEPARATOR.'config_inc.php' ) ) {
-		require_once( dirname( __FILE__ ).DIRECTORY_SEPARATOR.'config_inc.php' );
+	if ( file_exists( 'config_inc.php' ) ) {
+		require_once( 'config_inc.php' );
 		$t_config_inc_found = true;
 	}
 	
@@ -78,8 +85,9 @@
 		$t_config_inc_found = true;
 	}
 	
-	# Attempt to find the location of the core files.
-	$t_core_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR;
+	$t_core_path = APPLICATION_PATH . '/core/';
+	
+	# If $g_core_path is defined, pick it up avoiding exploits
 	if (isset($GLOBALS['g_core_path']) && !isset( $HTTP_GET_VARS['g_core_path'] ) && !isset( $HTTP_POST_VARS['g_core_path'] ) && !isset( $HTTP_COOKIE_VARS['g_core_path'] ) ) {
 		$t_core_path = $g_core_path;
 	}
@@ -99,7 +107,7 @@
 			$t_base_path = $g_core_path . '..' . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR;
 			$t_require_path = $t_base_path . str_replace( '_', DIRECTORY_SEPARATOR, $className ) . '.php';
 		} else {
-			$t_require_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR . $className . '.class.php';
+			$t_require_path = APPLICATION_PATH . '/core/classes/' . $className . '.class.php';
 		}
 
 		if ( file_exists( $t_require_path ) ) {
