@@ -178,7 +178,7 @@
 	 * unless you moved the 'core' directory out of your webroot (recommended).
 	 * @global string $g_core_path
 	 */
-	$g_core_path			= $g_absolute_path . 'core' . DIRECTORY_SEPARATOR;
+	# $g_core_path			= $g_absolute_path . 'core' . DIRECTORY_SEPARATOR;
 
 	/**
 	 * absolute path to class files.  Requires trailing / or \
