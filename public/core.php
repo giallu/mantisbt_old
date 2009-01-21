@@ -99,8 +99,7 @@
 		global $g_core_path;
 
 		if ( strpos( $className, '_' ) ) {
-			$t_base_path = $g_core_path . '..' . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR;
-			$t_require_path = $t_base_path . str_replace( '_', DIRECTORY_SEPARATOR, $className ) . '.php';
+			$t_require_path = APPLICATION_PATH . '/' . str_replace( '_', '/', $className ) . '.php';
 		} else {
 			$t_require_path = APPLICATION_PATH . '/core/classes/' . $className . '.class.php';
 		}
