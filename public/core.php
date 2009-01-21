@@ -98,11 +98,6 @@
 	function __autoload( $className ) {
 		global $g_core_path;
 
-		# Adjust for non-standard filenames.
-		if ( $className == 'MantisCoreFormattingPlugin' ) {
-			$className = 'MantisFormattingPlugin';	
-		}
-
 		if ( strpos( $className, '_' ) ) {
 			$t_base_path = $g_core_path . '..' . DIRECTORY_SEPARATOR . 'application' . DIRECTORY_SEPARATOR;
 			$t_require_path = $t_base_path . str_replace( '_', DIRECTORY_SEPARATOR, $className ) . '.php';
