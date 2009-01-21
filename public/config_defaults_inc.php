@@ -184,7 +184,7 @@
 	 * absolute path to class files.  Requires trailing / or \
 	 * @global string $g_class_path
 	 */
-	$g_class_path			= $g_core_path . 'classes' . DIRECTORY_SEPARATOR;
+	$g_class_path			= 'classes' . DIRECTORY_SEPARATOR;
 
 	/**
 	 * Used to link to manual for User Documentation.
