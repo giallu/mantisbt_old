@@ -24,6 +24,7 @@
 	###########################################################################
 	# INCLUDES
 	###########################################################################
+require_once( 'setenv.php' );
 
 	# --------------------
 	# timer analysis
@@ -36,14 +37,6 @@
 
 	ob_start();
 
-	define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application/'));
-	set_include_path(
-		APPLICATION_PATH . '/core' . PATH_SEPARATOR .
-		APPLICATION_PATH . '/../library' . PATH_SEPARATOR .
-		get_include_path()
-	);
-
-	
 	# Include compatibility file before anything else
 	require_once( APPLICATION_PATH . '/core/php_api.php' );
 
