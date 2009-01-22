@@ -118,14 +118,14 @@
 				# for even box number start new row and column
 				if ( 1 == $t_counter%2 ) {
 					echo '<tr><td valign="top" width="50%">';
-					include( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'my_view_inc.php' );
+					include( APPLICATION_PATH . '/core/my_view_inc.php' );
 					echo '</td>';
 				}
 
 				# for odd box number only start new column
 				elseif ( 0 == $t_counter%2 ) {
 					echo '<td valign="top" width="50%">';
-					include( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR . 'my_view_inc.php' );
+					include( APPLICATION_PATH . '/core/my_view_inc.php' );
 					echo '</td></tr>';
 				}
 
