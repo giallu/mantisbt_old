@@ -103,8 +103,8 @@ require_once( 'setenv.php' );
 			return;
 		}
 
-		$t_require_path = $g_core_path . 'rssbuilder' . DIRECTORY_SEPARATOR . 'class.' . $className . '.inc.php';
-
+		$t_require_path = APPLICATION_PATH . '/../library/rssbuilder' . DIRECTORY_SEPARATOR . 'class.' . $className . '.inc.php';
+		
 		if ( file_exists( $t_require_path ) ) {
 			require_once( $t_require_path );
 			return;
