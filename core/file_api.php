@@ -836,27 +836,5 @@ function file_ensure_uploaded( $p_file ) {
 
 # Get extension given the filename or its full path.
 function file_get_extension( $p_filename ) {
-	$ext = '';
-	$dot_found = false;
-	$i = strlen( $p_filename ) - 1;
-	while( $i >= 0 ) {
-		if( '.' == $p_filename[$i] ) {
-			$dot_found = true;
-			break;
-		}
-
-		# foung a directoryarker before a period.
-		if(( $p_filename[$i] == "/" ) || ( $p_filename[$i] == "\\" ) ) {
-			return '';
-		}
-
-		$ext = $p_filename[$i] . $ext;
-		$i--;
-	}
-
-	if( $dot_found ) {
-		return $ext;
-	} else {
-		return '';
-	}
+	return pathinfo( $p_filename, PATHINFO_EXTENSION );
 }
