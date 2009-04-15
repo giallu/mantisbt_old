@@ -608,11 +608,9 @@ function user_delete( $p_user_id ) {
 # Data Access
 # ===================================
 # --------------------
-# get a user id from a username
-#  return false if the username does not exist
-function user_get_id_by_name( $p_username ) {
+function user_get_id_by ( $p_key, $p_value ) {
 	global $g_cache_user;
-	if( $t_user = user_search_cache( 'username', $p_username ) ) {
+	if( $t_user = user_search_cache( $p_key, $p_value ) ) {
 		return $t_user['id'];
 	}
 
@@ -620,8 +618,8 @@ function user_get_id_by_name( $p_username ) {
 
 	$query = "SELECT *
 				  FROM $t_user_table
-				  WHERE username=" . db_param();
-	$result = db_query_bound( $query, Array( $p_username ) );
+				  WHERE $p_key=" . db_param();
+	$result = db_query_bound( $query, Array( $p_value ) );
 
 	if( 0 == db_num_rows( $result ) ) {
 		return false;
@@ -630,52 +628,21 @@ function user_get_id_by_name( $p_username ) {
 		user_cache_database_result( $row );
 		return $row['id'];
 	}
+}
+
+
+function user_get_id_by_name( $p_username ) {
+	return user_get_id_by ( 'username', $p_username );
 }
 
 # Get a user id from an email address
 function user_get_id_by_email( $p_email ) {
-	global $g_cache_user;
-	if( $t_user = user_search_cache( 'email', $p_email ) ) {
-		return $t_user['id'];
-	}
-
-	$t_user_table = db_get_table( 'mantis_user_table' );
-
-	$query = "SELECT *
-				  FROM $t_user_table
-				  WHERE email=" . db_param();
-	$result = db_query_bound( $query, Array( $p_email ) );
-
-	if( 0 == db_num_rows( $result ) ) {
-		return false;
-	} else {
-		$row = db_fetch_array( $result );
-		user_cache_database_result( $row );
-		return $row['id'];
-	}
+	return user_get_id_by ( 'email', $p_email );
 }
 
 # Get a user id from their real name
 function user_get_id_by_realname( $p_realname ) {
-	global $g_cache_user;
-	if( $t_user = user_search_cache( 'realname', $p_realname ) ) {
-		return $t_user['id'];
-	}
-
-	$t_user_table = db_get_table( 'mantis_user_table' );
-
-	$query = "SELECT *
-				  FROM $t_user_table
-				  WHERE realname=" . db_param();
-	$result = db_query_bound( $query, Array( $p_realname ) );
-
-	if( 0 == db_num_rows( $result ) ) {
-		return false;
-	} else {
-		$row = db_fetch_array( $result );
-		user_cache_database_result( $row );
-		return $row['id'];
-	}
+	return user_get_id_by ( 'realname', $p_realname );
 }
 
 # --------------------
