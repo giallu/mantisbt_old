@@ -240,7 +240,7 @@ $upgrade[39] = Array('CreateTableSQL',Array(db_get_table('mantis_sponsorship_tab
   date_submitted 	T NOTNULL DEFAULT '" . db_null_date() . "',
   last_updated 		T NOTNULL DEFAULT '" . db_null_date() . "'
 ",Array('mysql' => 'ENGINE=MyISAM', 'pgsql' => 'WITHOUT OIDS')));
-$upgrade[4/] = Array('CreateIndexSQL',Array('idx_sponsorship_bug_id',db_get_table('mantis_sponsorship_table'),'bug_id'));
+$upgrade[40] = Array('CreateIndexSQL',Array('idx_sponsorship_bug_id',db_get_table('mantis_sponsorship_table'),'bug_id'));
 $upgrade[41] = Array('CreateIndexSQL',Array('idx_sponsorship_user_id',db_get_table('mantis_sponsorship_table'),'user_id'));
 $upgrade[42] = Array('CreateTableSQL',Array(db_get_table('mantis_tokens_table'),"
 			  id I NOTNULL PRIMARY AUTOINCREMENT,
