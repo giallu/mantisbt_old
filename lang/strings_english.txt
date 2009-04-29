@@ -441,6 +441,9 @@ $s_access_level = 'Access Level';
 $s_update_user_button = 'Update User';
 $s_verify_warning = 'Your account information has been verified. The account confirmation message you have received is now invalid.';
 $s_verify_change_password = 'You must set a password here to allow you to log in again.';
+$s_avatar = "Avatar";
+$s_no_avatar = "No avatar";
+$s_local = "Local";
 
 # account_prefs_page.php
 $s_default_account_preferences_title = 'Account Preferences';

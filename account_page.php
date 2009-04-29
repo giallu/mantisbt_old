@@ -211,6 +211,27 @@ if ( $t_ldap && ON == config_get( 'use_ldap_email' ) ) { ?> <!-- With LDAP Email
 			<input type="text" size="32" maxlength="<?php echo REALLEN;?>" name="realname" value="<?php echo string_attribute( $u_realname ) ?>" />
 		</td>
 	</tr>
+	
+	<?php if ( ON == config_get( 'show_avatar' ) ) { ?>
+	<!-- Avatar -->
+	<tr <?php echo helper_alternate_class() ?> valign="top">
+		<td class="category">
+			<?php echo lang_get( 'avatar' ) ?>
+		</td>
+		<td>
+		<div id="avatar-type">
+			<ul class="verticallist">
+				<li><label><input type="radio" value="none" name="avatar_type"<?php print check_checked($u_avatar_type,'none')?>/>
+				<?php echo lang_get( 'no_avatar' ) ?></label></li>
+				<li><label><input type="radio" value="local" name="avatar_type"<?php print check_checked($u_avatar_type,'local')?>/>
+				<?php echo lang_get( 'local' ) ?></label></li>
+				<li><label><input type="radio" value="gravatar" name="avatar_type"<?php print check_checked($u_avatar_type,'gravatar')?>/>
+				Gravatar</label><br /><?php print_avatar ( $u_id ); ?></li>
+			</ul> 
+		</div>
+		</td>
+	</tr>
+	<?php } ?>
 
 	<!-- Access level -->
 	<tr <?php echo helper_alternate_class() ?>>

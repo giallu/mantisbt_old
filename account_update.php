@@ -43,6 +43,7 @@
 	$f_realname        	= gpc_get_string( 'realname', '' );
 	$f_password        	= gpc_get_string( 'password', '' );
 	$f_password_confirm	= gpc_get_string( 'password_confirm', '' );
+	$f_avatar_type      = gpc_get_string( 'avatar_type' );
 
 	$f_email = email_append_domain( $f_email );
 
@@ -85,6 +86,10 @@
 				$t_password_updated = true;
 			}
 		}
+	}
+
+	if ( $f_avatar_type != user_get_field( $t_user_id, 'avatar_type' ) ) {
+		user_set_field( $t_user_id, 'avatar_type', $f_avatar_type );
 	}
 
 	form_security_purge('account_update');
