@@ -420,3 +420,4 @@ $upgrade[84] = Array( 'CreateTableSQL', Array( db_get_table( 'mantis_bug_revisio
 	", Array( 'mysql' => 'TYPE=MyISAM', 'pgsql' => 'WITHOUT OIDS' ) ) );
 $upgrade[85] = Array( 'CreateIndexSQL', Array( 'idx_bug_rev_id_time', db_get_table( 'mantis_bug_revision_table' ), 'bug_id, timestamp' ) );
 $upgrade[86] = Array( 'CreateIndexSQL', Array( 'idx_bug_rev_type', db_get_table( 'mantis_bug_revision_table' ), 'type' ) );
+$upgrade[87] = Array( 'AddColumnSQL', Array( db_get_table( 'mantis_user_table' ), "avatar_type C(32) NOTNULL" ) );
