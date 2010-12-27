@@ -208,7 +208,7 @@ html_page_top( lang_get( 'report_bug_link' ) );
 print_recently_visited();
 ?>
 <br />
-<div align="center">
+<div>
 <form name="report_bug_form" method="post" <?php if ( $tpl_show_attachments ) { echo 'enctype="multipart/form-data"'; } ?> action="bug_report.php">
 <?php echo form_security_field( 'bug_report' ) ?>
 <table class="width90" cellspacing="1">
@@ -545,7 +545,7 @@ print_recently_visited();
 		</th>
 		<td>
 			<?php relationship_list_box( /* none */ -2, "rel_type", false, true ) ?>
-			<?php echo '<b>' . lang_get( 'bug' ) . ' ' . bug_format_id( $f_master_bug_id ) . '</b>' ?>
+			<?php echo '<strong>' . lang_get( 'bug' ) . ' ' . bug_format_id( $f_master_bug_id ) . '</strong>' ?>
 		</td>
 	</tr>
 <?php

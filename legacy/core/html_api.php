@@ -487,17 +487,11 @@ function html_top_banner() {
 	if( !is_blank( $t_page ) && file_exists( $t_page ) && !is_dir( $t_page ) ) {
 		include( $t_page );
 	} else if( $t_show_logo ) {
-		if( is_page_name( 'login_page' ) ) {
-			$t_align = 'center';
-		} else {
-			$t_align = 'left';
-		}
-
-		echo '<div id="banner" align="', $t_align, '">';
+		echo '<div id="banner">';
 		if( $t_show_url ) {
 			echo '<a id="logo-link" href="', config_get( 'logo_url' ), '">';
 		}
-		echo '<img border="0" id="logo-image" alt="Mantis Bug Tracker" src="' . helper_mantis_url( config_get( 'logo_image' ) ) . '" />';
+		echo '<img id="logo-image" alt="Mantis Bug Tracker" src="' . helper_mantis_url( config_get( 'logo_image' ) ) . '" />';
 		if( $t_show_url ) {
 			echo '</a>';
 		}
@@ -864,9 +858,9 @@ function print_menu() {
 
 		$t_bug_label = lang_get( 'issue_id' );
 		echo '<input type="hidden" name="bug_label" value="', $t_bug_label, '" />';
-		echo '<input type="text" name="bug_id" size="10" class="small" />&nbsp;';
+		echo '<input type="text" name="bug_id" size="10" class="small" />&#160;';
 
-		echo '<input type="submit" class="button-small" value="' . lang_get( 'jump' ) . '" />&nbsp;';
+		echo '<input type="submit" class="button-small" value="' . lang_get( 'jump' ) . '" />&#160;';
 		echo '</form>';
 		echo '</div>';
 		echo '<div class="main-menu">';

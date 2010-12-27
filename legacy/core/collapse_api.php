@@ -80,7 +80,7 @@ function collapse_open( $p_name, $p_section = '' ) {
 	$g_current_collapse_section = $t_block;
 
 	$t_div_id = $t_block . '_open';
-	echo '<div id="', $t_div_id, '"', ( $t_display ? ' class="collapse-open"' : ' class="collapse-closed"' ), '>';
+	echo "\n<div id=\"", $t_div_id, '"', ( $t_display ? ' class="collapse-open"' : ' class="collapse-closed"' ), '>';
 }
 
 /**
@@ -108,7 +108,7 @@ function collapse_closed( $p_name, $p_section = '' ) {
 	ob_start();
 
 	$t_div_id = $t_block . '_closed';
-	echo '<div id="', $t_div_id, '"', ( $t_display ? 'class="collapse-open"' : ' class="collapse-closed"' ), '>';
+	echo "\n<div id=\"", $t_div_id, '"', ( $t_display ? ' class="collapse-open"' : ' class="collapse-closed"' ), '>';
 }
 
 /**
@@ -137,7 +137,7 @@ function collapse_icon( $p_name, $p_section = '' ) {
 		$t_id = $p_name. '_closed_link';
 	}
 
-	echo '<a id="', $t_id, '" href="" class="collapse-link"><img border="0" src="images/', $t_icon, '" alt="', $t_alt, '" /></a>&nbsp;';
+	echo '<a id="', $t_id, '" href="" class="collapse-link"><img src="images/', $t_icon, '" alt="', $t_alt, '" /></a>&#160;';
 }
 
 /**

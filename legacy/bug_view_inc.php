@@ -207,7 +207,7 @@ $tpl_show_projection = in_array( 'projection', $t_fields );
 $tpl_projection = $tpl_show_projection ? string_display_line( get_enum_element( 'projection', $tpl_bug->projection ) ) : '';
 $tpl_show_eta = in_array( 'eta', $t_fields );
 $tpl_eta = $tpl_show_eta ? string_display_line( get_enum_element( 'eta', $tpl_bug->eta ) ) : '';
-$tpl_show_attachments = in_array( 'attachments', $t_fields ) && ( ( $tpl_bug->reporter_id == auth_get_current_user_id() ) || access_has_bug_level( config_get( 'view_attachments_threshold' ), $f_bug_id ) );
+$tpl_show_attachments = in_array( 'attachments', $t_fields );
 $tpl_can_attach_tag = $tpl_show_tags && !$tpl_force_readonly && access_has_bug_level( config_get( 'tag_attach_threshold' ), $f_bug_id );
 $tpl_show_category = in_array( 'category_id', $t_fields );
 $tpl_category = $tpl_show_category ? string_display_line( category_full_name( $tpl_bug->category_id ) ) : '';
@@ -244,7 +244,7 @@ echo '<td class="form-title" colspan="', $t_bugslist ? '3' : '4', '">';
 
 echo $tpl_form_title;
 
-echo '&nbsp;<span class="small">';
+echo '&#160;<span class="small">';
 
 # Jump to Bugnotes
 print_bracket_link( "#bugnotes", lang_get( 'jump_to_bugnotes' ), false, 'jump-to-bugnotes' );
@@ -313,8 +313,8 @@ echo '</td>';
 echo '</tr>';
 
 if ( $tpl_top_buttons_enabled ) {
-	echo '<tr align="center" class="top-buttons">';
-	echo '<td align="center" colspan="6">';
+	echo '<tr class="top-buttons">';
+	echo '<td colspan="6">';
 	html_buttons_view_bug_page( $tpl_bug_id );
 	echo '</td>';
 	echo '</tr>';
@@ -324,7 +324,7 @@ echo '</thead>';
 
 if ( $tpl_bottom_buttons_enabled ) {
 	echo '<tfoot>';
-	echo '<tr align="center" class="bottom-buttons"><td align="center" colspan="6">';
+	echo '<tr class="bottom-buttons"><td colspan="6">';
 	html_buttons_view_bug_page( $tpl_bug_id );
 	echo '</td></tr>';
 	echo '</tfoot>';
@@ -383,7 +383,7 @@ if ( $tpl_show_reporter ) {
 	echo '<td class="bug-reporter">';
 	print_user_with_subject( $tpl_bug->reporter_id, $tpl_bug_id );
 	echo '</td>';
-	echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td colspan="', $t_spacer, '">&#160;</td>';
 
 	echo '</tr>';
 }
@@ -416,7 +416,7 @@ if ( $tpl_show_handler || $tpl_show_due_date ) {
 		$t_spacer += 2;
 	}
 
-	echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td colspan="', $t_spacer, '">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -455,7 +455,7 @@ if ( $tpl_show_priority || $tpl_show_severity || $tpl_show_reproducibility ) {
 
 	# spacer
 	if ( $t_spacer > 0 ) {
-		echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+		echo '<td colspan="', $t_spacer, '">&#160;</td>';
 	}
 
 	echo '</tr>';
@@ -488,7 +488,7 @@ if ( $tpl_show_status || $tpl_show_resolution ) {
 
 	# spacer
 	if ( $t_spacer > 0 ) {
-		echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+		echo '<td colspan="', $t_spacer, '">&#160;</td>';
 	}
 
 	echo '</tr>';
@@ -519,7 +519,7 @@ if ( $tpl_show_projection || $tpl_show_eta ) {
 		$t_spacer += 2;
 	}
 
-	echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td colspan="', $t_spacer, '">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -557,7 +557,7 @@ if ( $tpl_show_platform || $tpl_show_os || $tpl_show_os_version ) {
 	}
 
 	if ( $t_spacer > 0 ) {
-		echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+		echo '<td colspan="', $t_spacer, '">&#160;</td>';
 	}
 
 	echo '</tr>';
@@ -589,7 +589,7 @@ if ( $tpl_show_product_version || $tpl_show_product_build ) {
 	}
 
 	# spacer
-	echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td colspan="', $t_spacer, '">&#160;</td>';
 
 	echo '</tr>';
 }
@@ -621,7 +621,7 @@ if ( $tpl_show_target_version || $tpl_show_fixed_in_version ) {
 	}
 
 	# spacer
-	echo '<td colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td colspan="', $t_spacer, '">&#160;</td>';
 
 	echo '</tr>';
 }

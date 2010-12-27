@@ -88,14 +88,14 @@ print_manage_menu();
 <br />
 
 <!-- USER INFO -->
-<div align="center">
+<div>
 <form method="post" action="manage_user_update.php">
 <?php echo form_security_field( 'manage_user_update' ) ?>
 <table class="width75" cellspacing="1">
 <!-- Title -->
 <tr>
 	<td class="form-title" colspan="2">
-		<input type="hidden" name="user_id" value="<?php echo string_attribute( $t_user['id'] ) ?>" />
+		<input type="hidden" name="user_id" value="<?php echo $t_user['id'] ?>" />
 		<?php echo lang_get( 'edit_user_title' ) ?>
 	</td>
 </tr>
@@ -206,12 +206,15 @@ print_manage_menu();
 
 <!-- RESET AND DELETE -->
 <div class="border center">
+
 <!-- Reset Button -->
+<?php if( !$t_ldap ) { ?>
 	<form method="post" action="manage_user_reset.php">
 <?php echo form_security_field( 'manage_user_reset' ) ?>
 		<input type="hidden" name="user_id" value="<?php echo $t_user['id'] ?>" />
 		<input type="submit" class="button" value="<?php echo lang_get( 'reset_password_button' ) ?>" />
 	</form>
+<?php } ?>
 
 <!-- Delete Button -->
 <?php if ( !( ( user_is_administrator( $t_user_id ) && ( user_count_level( config_get_global( 'admin_site_threshold' ) ) <= 1 ) ) ) ) { ?>
@@ -224,7 +227,8 @@ print_manage_menu();
 <?php } ?>
 </div>
 <br />
-<div align="center">
+<?php if( !$t_ldap ) { ?>
+<div>
 <?php
 	if ( ( ON == config_get( 'send_reset_password' ) ) && ( ON == config_get( 'enable_email_notification' ) ) ) {
 		echo lang_get( 'reset_password_msg' );
@@ -233,6 +237,7 @@ print_manage_menu();
 	}
 ?>
 </div>
+<?php } ?>
 
 
 <!-- PROJECT ACCESS (if permissions allow) and user is not ADMINISTRATOR -->
@@ -240,7 +245,7 @@ print_manage_menu();
     !user_is_administrator( $t_user_id ) ) {
 ?>
 <br />
-<div align="center">
+<div>
 <table class="width75" cellspacing="1">
 <!-- Title -->
 <tr>
@@ -250,7 +255,7 @@ print_manage_menu();
 </tr>
 
 <!-- Assigned Projects -->
-<tr <?php echo helper_alternate_class( 1 ) ?> valign="top">
+<tr <?php echo helper_alternate_class( 1 ) ?>>
 	<th class="category" width="30%">
 		<?php echo lang_get( 'assigned_projects_label' ) ?>
 	</th>
@@ -262,8 +267,8 @@ print_manage_menu();
 <form method="post" action="manage_user_proj_add.php">
 <?php echo form_security_field( 'manage_user_proj_add' ) ?>
 		<input type="hidden" name="user_id" value="<?php echo $t_user['id'] ?>" />
-<!-- Unassigend Project Selection -->
-<tr <?php echo helper_alternate_class() ?> valign="top">
+<!-- Unassigned Project Selection -->
+<tr <?php echo helper_alternate_class() ?>>
 	<th class="category">
 		<?php echo lang_get( 'unassigned_projects_label' ) ?>
 	</th>
@@ -275,7 +280,7 @@ print_manage_menu();
 </tr>
 
 <!-- New Access Level -->
-<tr <?php echo helper_alternate_class() ?> valign="top">
+<tr <?php echo helper_alternate_class() ?>>
 	<th class="category">
 		<?php echo lang_get( 'access_level_label' ) ?>
 	</th>

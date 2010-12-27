@@ -147,24 +147,24 @@ function check_selected( $p_var, $p_val = true ) {
 			# catch the case where one entry is 0 and the other is a string.
 			if( is_string( $t_this_var ) && is_string( $p_val ) ) {
 				if( $t_this_var === $p_val ) {
-					echo ' selected="selected" ';
+					echo ' selected="selected"';
 					return;
 				}
 			}
 			else if( $t_this_var == $p_val ) {
-				echo ' selected="selected" ';
+				echo ' selected="selected"';
 				return;
 			}
 		}
 	} else {
 		if( is_string( $p_var ) && is_string( $p_val ) ) {
 			if( $p_var === $p_val ) {
-				echo ' selected="selected" ';
+				echo ' selected="selected"';
 				return;
 			}
 		}
 		else if( $p_var == $p_val ) {
-			echo ' selected="selected" ';
+			echo ' selected="selected"';
 			return;
 		}
 	}
@@ -189,24 +189,24 @@ function check_checked( $p_var, $p_val = true ) {
 			# catch the case where one entry is 0 and the other is a string.
 			if( is_string( $t_this_var ) && is_string( $p_val ) ) {
 				if( $t_this_var === $p_val ) {
-					echo ' checked="checked" ';
+					echo ' checked="checked"';
 					return;
 				}
 			}
 			else if( $t_this_var == $p_val ) {
-				echo ' checked="checked" ';
+				echo ' checked="checked"';
 				return;
 			}
 		}
 	} else {
 		if( is_string( $p_var ) && is_string( $p_val ) ) {
 			if( $p_var === $p_val ) {
-				echo ' checked="checked" ';
+				echo ' checked="checked"';
 				return;
 			}
 		}
 		else if( $p_var == $p_val ) {
-			echo ' checked="checked" ';
+			echo ' checked="checked"';
 			return;
 		}
 	}
@@ -341,8 +341,7 @@ function helper_ensure_confirmed( $p_message, $p_button_label ) {
 
 	html_page_top();
 
-	echo "<br />\n<div align=\"center\">\n";
-	print_hr();
+	echo "<br />\n<div class=\"center\">\n<hr />";
 	echo "\n$p_message\n";
 
 	echo '<form method="post" action="' . form_action_self() . "\">\n";
@@ -355,8 +354,7 @@ function helper_ensure_confirmed( $p_message, $p_button_label ) {
 	echo '<br /><br /><input type="submit" class="button" value="' . $p_button_label . '" />';
 	echo "\n</form>\n";
 
-	print_hr();
-	echo "</div>\n";
+	echo "<hr /></div>\n";
 	html_page_bottom();
 	exit;
 }

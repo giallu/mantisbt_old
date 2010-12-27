@@ -112,7 +112,7 @@ $t_redirect_url = string_get_bug_view_url( $t_bug_id );
 html_page_top( bug_format_summary( $t_bug_id, SUMMARY_CAPTION ) );
 ?>
 <br />
-<div align="center">
+<div>
 <form method="post" action="bugnote_update.php">
 <?php echo form_security_field( 'bugnote_update' ) ?>
 <table class="width75" cellspacing="1">
@@ -134,7 +134,7 @@ html_page_top( bug_format_summary( $t_bug_id, SUMMARY_CAPTION ) );
 <?php if ( access_has_bug_level( config_get( 'time_tracking_edit_threshold' ), $t_bug_id ) ) { ?>
 <tr class="row-2">
 	<td class="center" colspan="2">
-		<b><?php echo lang_get( 'time_tracking') ?> (HH:MM)</b><br />
+		<strong><?php echo lang_get( 'time_tracking') ?> (HH:MM)</strong><br />
 		<input type="text" name="time_tracking" size="5" value="<?php echo $t_time_tracking ?>" />
 	</td>
 </tr>

@@ -450,7 +450,9 @@ echo "<span class=\"my-buglist-count\">($v_start - $v_end / $t_bug_count)</span>
 
 	# Check for attachments
 	$t_attachment_count = 0;
-	if(( file_can_view_bug_attachments( $t_bug->id ) ) ) {
+	# TODO: factor in the allow_view_own_attachments configuration option
+	# instead of just using a global check.
+	if(( file_can_view_bug_attachments( $t_bug->id, null ) ) ) {
 		$t_attachment_count = file_bug_attachment_count( $t_bug->id );
 	}
 
@@ -467,7 +469,7 @@ echo "<span class=\"my-buglist-count\">($v_start - $v_end / $t_bug_count)</span>
 <tr class="my-buglist-bug <?php echo $t_bug_class?>" bgcolor="<?php echo $status_color?>">
 	<?php
 	# -- Bug ID and details link + Pencil shortcut --?>
-	<td class="center my-buglist-id" valign="top" width ="0" nowrap="nowrap">
+	<td class="center nowrap my-buglist-id" width="0">
 		<span class="small">
 		<?php
 			print_bug_link( $t_bug->id );
@@ -475,7 +477,7 @@ echo "<span class=\"my-buglist-count\">($v_start - $v_end / $t_bug_count)</span>
 	echo '<br />';
 
 	if( !bug_is_readonly( $t_bug->id ) && access_has_bug_level( $t_update_bug_threshold, $t_bug->id ) ) {
-		echo '<a class="edit" href="' . string_get_bug_update_url( $t_bug->id ) . '"><img border="0" src="' . $t_icon_path . 'update.png' . '" alt="' . lang_get( 'update_bug_button' ) . '" /></a>';
+		echo '<a class="edit" href="' . string_get_bug_update_url( $t_bug->id ) . '"><img src="' . $t_icon_path . 'update.png' . '" alt="' . lang_get( 'update_bug_button' ) . '" /></a>';
 	}
 
 	if( ON == config_get( 'show_priority_text' ) ) {
@@ -500,7 +502,7 @@ echo "<span class=\"my-buglist-count\">($v_start - $v_end / $t_bug_count)</span>
 
 	<?php
 	# -- Summary --?>
-	<td class="left my-buglist-description" valign="top" width="100%">
+	<td class="left my-buglist-description" width="100%">
 		<?php
 		 	if( ON == config_get( 'show_bug_project_links' ) && helper_get_current_project() != $t_bug->project_id ) {
 				echo '<span class="small project">[', string_display_line( project_get_name( $t_bug->project_id ) ), '] </span>';
@@ -515,7 +517,7 @@ echo "<span class=\"my-buglist-count\">($v_start - $v_end / $t_bug_count)</span>
 
     echo '<span class="small last-modified"> - ';
 	if( $t_bug->last_updated > strtotime( '-' . $t_filter[FILTER_PROPERTY_HIGHLIGHT_CHANGED] . ' hours' ) ) {
-		echo '<b>' . $t_last_updated . '</b>';
+		echo '<strong>' . $t_last_updated . '</strong>';
 	} else {
 		echo $t_last_updated;
 	}

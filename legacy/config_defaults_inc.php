@@ -235,13 +235,6 @@ if ( isset( $_SERVER['SERVER_SOFTWARE'] ) ) {
 $g_session_handler = 'php';
 
 /**
- * Session key name. Should be unique between multiple installations to prevent
- * conflicts.
- * @global string $g_session_key
- */
-$g_session_key = 'MantisBT';
-
-/**
  * Session save path.  If false, uses default value as set by session handler.
  * @global bool $g_session_save_path
  */
@@ -1713,16 +1706,16 @@ $g_html_make_links = ON;
 
 /**
  * These are the valid html tags for multi-line fields (e.g. description)
- * do NOT include href or img tags here
- * do NOT include tags that have parameters (eg. <font face="arial">)
+ * do NOT include a or img tags here
+ * do NOT include tags that require attributes
  * @global string $g_html_valid_tags
  */
 $g_html_valid_tags = 'p, li, ul, ol, br, pre, i, b, u, em';
 
 /**
  * These are the valid html tags for single line fields (e.g. issue summary).
- * do NOT include href or img tags here
- * do NOT include tags that have parameters (eg. <font face="arial">)
+ * do NOT include a or img tags here
+ * do NOT include tags that require attributes
  * @global string $g_html_valid_tags_single_line
  */
 $g_html_valid_tags_single_line = 'i, b, u, em';
@@ -2868,7 +2861,7 @@ $g_cookie_version = 'v8';
 
 /**
  * --- cookie prefix ---------------
- * set this to a unique identifier.  No spaces.
+ * set this to a unique identifier.  No spaces or periods.
  * @global string $g_cookie_prefix
  */
 $g_cookie_prefix = 'MANTIS';
@@ -2932,12 +2925,13 @@ $g_filter_custom_fields_per_row = 8;
 $g_view_filters = SIMPLE_DEFAULT;
 
 /**
- * This switch enables the use of xmlhttprequest protocol to speed up the
- * filter display. Rather than launching a separate page, the filters are
- * updated in-line in the view_all_bugs_page.
- * @global int $g_dhtml_filters
+ * This switch enables the use of AJAX to dynamically load and create filter
+ * form controls upon request. This method will reduce the amount of data that
+ * needs to be transferred upon each page load dealing with filters and thus
+ * will result in speed improvements and bandwidth reduction.
+ * @global int $g_use_dynamic_filters
  */
-$g_dhtml_filters = ON;
+$g_use_dynamic_filters = ON;
 
 /**
  * The threshold required for users to be able to create permalinks.  To turn

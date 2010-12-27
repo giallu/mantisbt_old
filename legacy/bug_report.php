@@ -216,6 +216,9 @@ if ( $f_master_bug_id > 0 ) {
 
 		# Send the email notification
 		email_relationship_added( $f_master_bug_id, $t_bug_id, relationship_get_complementary_type( $f_rel_type ) );
+		
+		# update relationship target bug last updated
+		bug_update_date( $t_bug_id );
 	}
 }
 
@@ -237,7 +240,7 @@ if ( !$f_report_stay ) {
 html_page_top2();
 ?>
 <br />
-<div align="center">
+<div>
 <?php
 echo lang_get( 'operation_successful' ) . '<br />';
 print_bracket_link( string_get_bug_view_url( $t_bug_id ), sprintf( lang_get( 'view_submitted_bug_link' ), $t_bug_id ) );

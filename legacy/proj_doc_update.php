@@ -120,7 +120,7 @@ if ( is_uploaded_file( $v_tmp_name ) ) {
 				file_delete_local( $t_disk_file_name );
 			}
 			if ( !move_uploaded_file( $v_tmp_name, $t_disk_file_name ) ) {
-				trigger_error( FILE_MOVE_FAILED, ERROR );
+				trigger_error( ERROR_FILE_MOVE_FAILED, ERROR );
 			}
 			chmod( $t_disk_file_name, config_get( 'attachments_file_permissions' ) );
 
@@ -156,7 +156,7 @@ $t_redirect_url = 'proj_doc_page.php';
 html_page_top( null, $t_redirect_url );
 ?>
 <br />
-<div align="center">
+<div>
 <?php
 echo lang_get( 'operation_successful' ).'<br />';
 print_bracket_link( $t_redirect_url, lang_get( 'proceed' ) );

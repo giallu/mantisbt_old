@@ -170,7 +170,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 	# display the available and selected bugs
 	if ( in_array( $t_id, $f_bug_arr ) || !$f_show_flag ) {
 		if ( $t_count_exported > 0 ) {
-			echo "<br clear=all style='mso-special-character:line-break; page-break-before:always'>";
+			echo '<br style="mso-special-character: line-break; page-break-before: always">';
 		}
 
 		$t_count_exported++;
@@ -190,7 +190,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 </tr>
 <tr>
 	<td class="print-spacer" colspan="6">
-		<hr size="1" width="100%" />
+		<hr />
 	</td>
 </tr>
 <tr class="print-category">
@@ -235,7 +235,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 </tr>
 <tr>
 	<td class="print-spacer" colspan="6">
-		<hr size="1" width="100%" />
+		<hr />
 	</td>
 </tr>
 <tr class="print">
@@ -269,7 +269,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 		}
 	} else {
 ?>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 <?php } ?>
 </tr>
 <tr class="print">
@@ -289,7 +289,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 	<td class="print">
 		<?php echo string_display_line( $t_bug->os ) ?>
 	</td>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 </tr>
 <tr class="print">
 	<td class="print-category">
@@ -304,7 +304,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 	<td class="print">
 		<?php echo string_display_line( $t_bug->os_build ) ?>
 	</td>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 </tr>
 <tr class="print">
 	<td class="print-category">
@@ -319,7 +319,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 	<td class="print">
 		<?php echo string_display_line( $t_bug->version ) ?>
 	</td>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 </tr>
 <tr class="print">
 	<td class="print-category">
@@ -334,7 +334,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 	<td class="print">
 		<?php echo get_enum_element( 'resolution', $t_bug->resolution ) ?>
 	</td>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 </tr>
 <tr class="print">
 	<td class="print-category">
@@ -344,12 +344,12 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 		<?php echo get_enum_element( 'projection', $t_bug->projection ) ?>
 	</td>
 	<td class="print-category">
-		&nbsp;
+		&#160;
 	</td>
 	<td class="print">
-		&nbsp;
+		&#160;
 	</td>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 </tr>
 <tr class="print">
 	<td class="print-category">
@@ -364,15 +364,15 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 	<td class="print">
 		<?php echo string_display_line( $t_bug->fixed_in_version ) ?>
 	</td>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 
 </tr>
 <tr class="print">
 	<td class="print-category">
-		&nbsp;
+		&#160;
 	</td>
 	<td class="print">
-		&nbsp;
+		&#160;
 	</td>
 	<td class="print-category">
 		<?php echo sprintf( lang_get( 'label' ), $t_lang_target_version ) ?>
@@ -380,7 +380,7 @@ for( $j=0; $j < $t_row_count; $j++ ) {
 	<td class="print">
 		<?php echo string_display_line( $t_bug->target_version ) ?>
 	</td>
-	<td class="print" colspan="2">&nbsp;</td>
+	<td class="print" colspan="2">&#160;</td>
 </tr>
 <?php
 $t_related_custom_field_ids = custom_field_get_linked_ids( $t_bug->project_id );
@@ -400,7 +400,7 @@ foreach( $t_related_custom_field_ids as $t_custom_field_id ) {
 ?>
 <tr>
 	<td class="print-spacer" colspan="6">
-		<hr size="1" width="100%" />
+		<hr />
 	</td>
 </tr>
 <tr class="print">
@@ -454,7 +454,7 @@ foreach( $t_related_custom_field_ids as $t_custom_field_id ) {
 	} # profile description
 ?>
 <tr class="print">
-	<td class="print-category" valign="top">
+	<td class="print-category">
 		<?php echo sprintf( lang_get( 'label' ), $t_lang_attached_files ) ?>
 	</td>
 	<td class="print" colspan="5">
@@ -477,7 +477,7 @@ foreach( $t_related_custom_field_ids as $t_custom_field_id ) {
 				echo "$c_filename ($c_filesize) <span class=\"italic\">$c_date_added</span><br />$c_download_url";
 
 				if ( $t_attachment['preview'] && $t_attachment['type'] == 'image' && $f_type_page == 'html' ) {
-					echo '<br /><img src="', $t_attachment['download_url'], '" alt="', $t_attachment['alt'], '" border="0" /><br />';
+					echo '<br /><img src="', $t_attachment['download_url'], '" alt="', $t_attachment['alt'], '" /><br />';
 				}
 			}
 		?>
@@ -517,11 +517,11 @@ foreach( $t_related_custom_field_ids as $t_custom_field_id ) {
 	?>
 <tr>
 	<td class="print-spacer" colspan="2">
-		<hr size="1" width="100%" />
+		<hr />
 	</td>
 </tr>
 <tr>
-	<td class="nopad" valign="top" width="20%">
+	<td class="nopad" width="20%">
 		<table class="hide" cellspacing="1">
 		<tr>
 			<td class="print">
@@ -530,12 +530,12 @@ foreach( $t_related_custom_field_ids as $t_custom_field_id ) {
 		</tr>
 		<tr>
 			<td class="print">
-				<?php print_user( $t_bugnote->reporter_id ) ?>&nbsp;&nbsp;&nbsp;
+				<?php print_user( $t_bugnote->reporter_id ) ?>&#160;&#160;&#160;
 			</td>
 		</tr>
 		<tr>
 			<td class="print">
-				<?php echo $t_date_submitted ?>&nbsp;&nbsp;&nbsp;
+				<?php echo $t_date_submitted ?>&#160;&#160;&#160;
 				<?php if ( $t_bugnote->date_submitted != $t_bugnote->last_modified ) {
 					echo '<br />(' . lang_get( 'last_edited') . lang_get( 'word_separator' ) . $t_last_modified . ')';
 				} ?>
@@ -543,7 +543,7 @@ foreach( $t_related_custom_field_ids as $t_custom_field_id ) {
 		</tr>
 		</table>
 	</td>
-	<td class="nopad" valign="top" width="85%">
+	<td class="nopad" width="85%">
 		<table class="hide" cellspacing="1">
 		<tr>
 			<td class="print">

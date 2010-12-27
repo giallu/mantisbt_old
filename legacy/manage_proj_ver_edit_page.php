@@ -70,7 +70,7 @@ html_page_top();
 print_manage_menu( 'manage_proj_ver_edit_page.php' );
 ?>
 <br />
-<div align="center">
+<div>
 <form method="post" action="manage_proj_ver_update.php">
 <?php echo form_security_field( 'manage_proj_ver_update' ) ?>
 <input type="hidden" name="version_id" value="<?php echo string_attribute( $t_version->id ) ?>" />
@@ -123,7 +123,7 @@ print_manage_menu( 'manage_proj_ver_edit_page.php' );
 <?php event_signal( 'EVENT_MANAGE_VERSION_UPDATE_FORM', array( $t_version->id ) ); ?>
 <tr>
 	<td>
-		&nbsp;
+		&#160;
 	</td>
 	<td>
 		<input type="submit" class="button" value="<?php echo lang_get( 'update_version_button' ) ?>" />

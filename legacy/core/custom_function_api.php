@@ -84,8 +84,8 @@ function custom_function_default_changelog_print_issue( $p_issue_id, $p_issue_le
 		$t_category_name = '';
 	}
 
-	$t_category = is_blank( $t_category_name ) ? '' : '<b>[' . string_display_line( $t_category_name ) . ']</b> ';
-	echo utf8_str_pad( '', $p_issue_level * 6, '&nbsp;' ), '- ', string_get_bug_view_link( $p_issue_id ), ': ', $t_category, string_display_line_links( $t_bug->summary );
+	$t_category = is_blank( $t_category_name ) ? '' : '<strong>[' . string_display_line( $t_category_name ) . ']</strong> ';
+	echo utf8_str_pad( '', $p_issue_level * 6, '&#160;' ), '- ', string_get_bug_view_link( $p_issue_id ), ': ', $t_category, string_display_line_links( $t_bug->summary );
 
 	if( $t_bug->handler_id != 0 ) {
 		echo ' (', prepare_user_name( $t_bug->handler_id ), ')';
@@ -110,8 +110,8 @@ function custom_function_default_roadmap_print_issue( $p_issue_id, $p_issue_leve
 	$t_bug = bug_get( $p_issue_id );
 
 	if( bug_is_resolved( $p_issue_id ) ) {
-		$t_strike_start = '<strike>';
-		$t_strike_end = '</strike>';
+		$t_strike_start = '<span class="strike">';
+		$t_strike_end = '</span>';
 	} else {
 		$t_strike_start = $t_strike_end = '';
 	}
@@ -122,9 +122,9 @@ function custom_function_default_roadmap_print_issue( $p_issue_id, $p_issue_leve
 		$t_category_name = '';
 	}
 
-	$t_category = is_blank( $t_category_name ) ? '' : '<b>[' . string_display_line( $t_category_name ) . ']</b> ';
+	$t_category = is_blank( $t_category_name ) ? '' : '<strong>[' . string_display_line( $t_category_name ) . ']</strong> ';
 
-	echo utf8_str_pad( '', $p_issue_level * 6, '&nbsp;' ), '- ', $t_strike_start, string_get_bug_view_link( $p_issue_id ), ': ', $t_category, string_display_line_links( $t_bug->summary );
+	echo utf8_str_pad( '', $p_issue_level * 6, '&#160;' ), '- ', $t_strike_start, string_get_bug_view_link( $p_issue_id ), ': ', $t_category, string_display_line_links( $t_bug->summary );
 
 	if( $t_bug->handler_id != 0 ) {
 		echo ' (', prepare_user_name( $t_bug->handler_id ), ')';
@@ -305,7 +305,7 @@ function custom_function_default_print_column_value( $p_column, $p_bug, $p_colum
 	} else {
 		$t_column_start = '<td>';
 		$t_column_end = '</td>';
-		$t_column_empty = '&nbsp;';
+		$t_column_empty = '&#160;';
 	}
 
 	$t_custom_field = column_get_custom_field_name( $p_column );

@@ -67,7 +67,7 @@ function bug_group_action_print_bug_list( $p_bug_ids_array ) {
 		echo '<br />';
 	}
 
-	echo '<div align="center">';
+	echo '<div>';
 	echo '<table class="width75" cellspacing="1">';
 	echo '<tr class="row-1">';
 	echo '<th class="category" colspan="2">';
@@ -83,7 +83,6 @@ function bug_group_action_print_bug_list( $p_bug_ids_array ) {
 	}
 
 	echo '</table>';
-	echo '</form>';
 	echo '</div>';
 
 	if( STATUS_LEGEND_POSITION_BOTTOM == $t_legend_position ) {

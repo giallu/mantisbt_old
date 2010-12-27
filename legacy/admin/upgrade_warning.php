@@ -42,7 +42,7 @@ $f_advanced = gpc_get_bool( 'advanced', false );
 </head>
 <body>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+<table width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
 	<tr class="top-bar">
 		<td class="links">
 			[ <a href="index.php">Back to Administration</a> ]
@@ -54,7 +54,7 @@ $f_advanced = gpc_get_bool( 'advanced', false );
 </table>
 <br /><br />
 
-<p><b>WARNING:</b> - Always backup your database data before upgrading.  For example, if you use a mysql database, From the command line you can do this with the mysqldump command.</p>
+<p><strong>WARNING:</strong> - Always backup your database data before upgrading.  For example, if you use a mysql database, From the command line you can do this with the mysqldump command.</p>
 <p>eg:</p>
 <p><tt>mysqldump -u[username] -p[password] [database_name] > [filename]</tt></p>
 <p>This will dump the contents of the specified database into the specified filename.</p>
@@ -63,18 +63,18 @@ $f_advanced = gpc_get_bool( 'advanced', false );
 
 <p>Upgrades may take several minutes depending on the size of your database.</p>
 
-<div align="center">
-	<table width="80%" bgcolor="#222222" border="0" cellpadding="10" cellspacing="1">
+<div>
+	<table width="80%" bgcolor="#222222" cellpadding="10" cellspacing="1">
 		<tr bgcolor="#ffffff">
 				<?php
 # check to see if the new installer was used
 if( -1 != config_get( 'database_version', -1 ) ) {
 	?>
-				<td align="center" nowrap="nowrap"><p>When you have backed up your database click the link below to continue</p>[ <a href="install.php">Upgrade Now</a> ]</td>
+				<td class="nowrap"><p>When you have backed up your database click the link below to continue</p>[ <a href="install.php">Upgrade Now</a> ]</td>
 				<?php
 }
 else {?>
-				<td align="center" nowrap="nowrap"><p>You aware to be running an old (pre 1.1.0) release of MantisBT. To update to this release of mantis, you must first update your installation to 1.1</td>
+				<td class="nowrap"><p>You aware to be running an old (pre 1.1.0) release of MantisBT. To update to this release of mantis, you must first update your installation to 1.1</td>
 				<?php
 }?>
 		</tr>

@@ -31,7 +31,7 @@ access_ensure_global_level( config_get_global( 'admin_site_threshold' ) );
 html_page_top( 'MantisBT Administration - System Utilities' );
 
 ?>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+<table width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
 	<tr class="top-bar">
 		<td class="links">
 			[ <a href="index.php">Back to MantisBT Administration</a> ]
@@ -43,7 +43,7 @@ html_page_top( 'MantisBT Administration - System Utilities' );
 </table>
 <br /><br />
 
-<table width="80%" bgcolor="#222222" border="0" cellpadding="10" cellspacing="1">
+<table width="80%" bgcolor="#222222" cellpadding="10" cellspacing="1">
 	<tr><td bgcolor=\"#e8e8e8\" colspan=\"2\"><span class=\"title\">Upgrade Utilities</span></td></tr>
 
 	<!-- # Headings -->
@@ -51,17 +51,17 @@ html_page_top( 'MantisBT Administration - System Utilities' );
 
 	<!-- each row links to an upgrade
 		move database bug attachments to disk -->
-	<tr bgcolor="#ffffff"><td>Move attachments stored in database schema to disk files.</td><td><center>
+	<tr bgcolor="#ffffff"><td>Move attachments stored in database schema to disk files.</td><td class="center">
 	<?php html_button( 'move_db2disk.php', 'Move Attachments to Disk', array( 'doc' => 'attachment' ) );?>
-	</center></td></tr>
+	</td></tr>
 
 	<!-- move database project files to disk -->
-	<tr bgcolor="#ffffff"><td>Move project files stored in database schema to disk.</td><td><center>
+	<tr bgcolor="#ffffff"><td>Move project files stored in database schema to disk.</td><td class="center">
 	<?php html_button( 'move_db2disk.php', 'Move Project Files to Disk', array( 'doc' => 'project' ) );?>
-	</center></td></tr>
+	</td></tr>
 
 	<!-- move custom field content to standard field -->
-	<tr bgcolor="#ffffff"><td>Copy Custom Field to Standard Field.</td><td><center>
+	<tr bgcolor="#ffffff"><td>Copy Custom Field to Standard Field.</td><td class="center">
 	<form method="post" action="copy_field.php">
 		From
 		<SELECT name="source_id">
@@ -86,12 +86,12 @@ foreach( $t_dest_ids as $t_id ) {
 		</SELECT>
 	<input type="submit" class="button" value="Copy" />
 	</form>
-	</center></td></tr>
+	</td></tr>
 
 	<!-- Database Statistics -->
-	<tr bgcolor="#ffffff"><td>Show database statistics.</td><td><center>
+	<tr bgcolor="#ffffff"><td>Show database statistics.</td><td class="center">
 	<?php html_button( 'db_stats.php', 'Display', array() );?>
-	</center></td></tr>
+	</td></tr>
 
 </table>
 <?php

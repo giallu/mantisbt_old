@@ -60,7 +60,7 @@ html_page_top2a();
 echo "<br />";
 ?>
 <br />
-<div align="center">
+<div>
 <form name="lost_password_form" method="post" action="lost_pwd.php">
 <?php echo form_security_field( 'lost_pwd' ) ?>
 <table class="width50" cellspacing="1">
@@ -120,9 +120,9 @@ if ( $t_allow_passwd ) {
 </div>
 
 <?php
-echo '<br /><div align="center">';
+echo '<br /><div>';
 print_login_link();
-echo '&nbsp;';
+echo '&#160;';
 print_signup_link();
 echo '</div>';
 

@@ -64,7 +64,7 @@ html_page_top();
 $t_rss_enabled = config_get( 'rss_enabled' );
 ?>
 <br />
-<div align="center">
+<div>
 <table class="width75" cellspacing="0">
 <?php
 $t_column_count = 0;
@@ -103,7 +103,7 @@ foreach( $t_query_arr as $t_id => $t_name ) {
 # Tidy up this row
 if ( ( $t_column_count > 0 ) && ( $t_column_count < $t_max_column_count ) ) {
 	for ( $i = $t_column_count; $i < $t_max_column_count; $i++ ) {
-		print '<td>&nbsp;</td>';
+		print '<td>&#160;</td>';
 	}
 	print '</tr>';
 }

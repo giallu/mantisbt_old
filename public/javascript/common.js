@@ -35,12 +35,6 @@ if (a!= -1) {
 style_display = 'block';
 
 $(document).ready( function() {
-	/* Global Tag change event added only if #tag_select exists */
-	$('#tag_select').live('change', function() {
-		var selected_tag = $('#tag_select option:selected').text();
-		tag_string_append( selected_tag );
-	});
-
 	$('.collapse-open').show();
 	$('.collapse-closed').hide();
 	$('.collapse-link').click( function(event) {
@@ -71,6 +65,23 @@ $(document).ready( function() {
 				callback(results);
 			});
 		}
+	});
+
+	$('a.dynamic-filter-expander').click(function(event) {
+		event.preventDefault();
+		var fieldID = $(this).attr('id');
+		var targetID = fieldID + '_target';
+		var viewType = $('#filters_form_open input[name=view_type]').val();
+		$('#' + targetID).html('<span class="dynamic-filter-loading">' + translations['loading'] + "</span>");
+		$.ajax({
+			url: 'return_dynamic_filters.php',
+			data: 'view_type=' + viewType + '&filter_target=' + fieldID,
+			cache: false,
+			context: $('#' + targetID),
+			success: function(html) {
+				$(this).html(html);
+			}
+		});
 	});
 
 	$('input.autofocus:first, select.autofocus:first, textarea.autofocus:first').focus();
@@ -171,6 +182,51 @@ $(document).ready( function() {
 	});
 	$('[name=form_set_project]').children('.button').hide();
 	setBugLabel();
+
+	$('input[type=checkbox]#use_date_filters').live('click', function() {
+		if (!$(this).is(':checked')) {
+			$('div.filter-box select[name=start_year]').attr('disabled', 'disabled');
+			$('div.filter-box select[name=start_month]').attr('disabled', 'disabled');
+			$('div.filter-box select[name=start_day]').attr('disabled', 'disabled');
+			$('div.filter-box select[name=end_year]').attr('disabled', 'disabled');
+			$('div.filter-box select[name=end_month]').attr('disabled', 'disabled');
+			$('div.filter-box select[name=end_day]').attr('disabled', 'disabled');
+		} else {
+			$('div.filter-box select[name=start_year]').removeAttr('disabled');
+			$('div.filter-box select[name=start_month]').removeAttr('disabled');
+			$('div.filter-box select[name=start_day]').removeAttr('disabled');
+			$('div.filter-box select[name=end_year]').removeAttr('disabled');
+			$('div.filter-box select[name=end_month]').removeAttr('disabled');
+			$('div.filter-box select[name=end_day]').removeAttr('disabled');
+		}
+	});
+
+	/* For Period.php bundled with the core MantisGraph plugin */
+	$('#dates > input[type=image].datetime').hide();
+	$('#period_menu > select#interval').change(function() {
+		if ($(this).val() == 10) {
+			$('#dates > input[type=text].datetime').removeAttr('disabled');
+			$('#dates > input[type=image].datetime').show();
+		} else {
+			$('#dates > input[type=text].datetime').attr('disabled', 'disabled');
+			$('#dates > input[type=image].datetime').hide();
+		}
+	});
+
+	$('#tag_select').live('change', function() {
+		var tagSeparator = $('#tag_separator').val();
+		var currentTagString = $('#tag_string').val();
+		var newTagOptionID = $(this).val();
+		var newTag = $('#tag_select option[value=' + newTagOptionID + ']').text();
+		if (currentTagString.indexOf(newTag) == -1) {
+			if (currentTagString.length > 0) {
+				$('#tag_string').val(currentTagString + tagSeparator + newTag);
+			} else {
+				$('#tag_string').val(newTag);
+			}
+		}
+		$(this).val(0);
+	});
 });
 
 function setBugLabel() {
@@ -284,20 +340,4 @@ function setDisplay(idTag, state)
 function toggleDisplay(idTag)
 {
 	setDisplay( idTag, (document.getElementById(idTag).style.display == 'none')?1:0 );
-}
-
-/* Append a tag name to the tag input box, with repect for tag separators, etc */
-function tag_string_append( p_string ) {
-	t_tag_separator = $('#tag_separator').val();
-	t_tag_string = $('#tag_string');
-	t_tag_select = $('#tag_select');
-
-	if ( Trim( p_string ) == '' ) { return; }
-
-	if ( t_tag_string.val() != '' ) {
-		t_tag_string.val( t_tag_string.val() + t_tag_separator + p_string );
-	} else {
-		t_tag_string.val( t_tag_string.val() + p_string );
-	}
-	t_tag_select.val(0);
 }

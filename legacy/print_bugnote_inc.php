@@ -116,11 +116,11 @@ require_api( 'user_api.php' );
 ?>
 <tr>
 	<td class="print-spacer" colspan="2">
-		<hr size="1" />
+		<hr />
 	</td>
 </tr>
 <tr>
-	<td class="nopad" valign="top" width="20%">
+	<td class="nopad" width="20%">
 		<table class="hide" cellspacing="1">
 		<tr>
 			<td class="print">
@@ -131,12 +131,12 @@ require_api( 'user_api.php' );
 			<td class="print">
 				<?php
 				echo print_user( $v3_reporter_id );
-				?>&nbsp;&nbsp;&nbsp;
+				?>&#160;&#160;&#160;
 			</td>
 		</tr>
 		<tr>
 			<td class="print">
-				<?php echo $v3_date_submitted ?>&nbsp;&nbsp;&nbsp;
+				<?php echo $v3_date_submitted ?>&#160;&#160;&#160;
 				<?php if ( $v3_date_submitted != $v3_last_modified ) {
 					echo '<br />(' . lang_get( 'last_edited') . lang_get( 'word_separator' ) . $v3_last_modified . ')';
 				} ?>
@@ -144,7 +144,7 @@ require_api( 'user_api.php' );
 		</tr>
 		</table>
 	</td>
-	<td class="nopad" valign="top" width="85%">
+	<td class="nopad" width="85%">
 		<table class="hide" cellspacing="1">
 		<tr>
 			<td class="print">
@@ -155,7 +155,7 @@ require_api( 'user_api.php' );
 							$v3_note_attr = utf8_substr( $v3_note_attr, 1, utf8_strlen( $v3_note_attr ) - 2 );
 							$t_to = array();
 							foreach ( explode( '|', $v3_note_attr ) as $t_recipient ) {
-								$t_to[] = user_get_name( $t_recipient );
+								$t_to[] = string_display_line( user_get_name( $t_recipient ) );
 							}
 							echo implode( ', ', $t_to ) . '</div><br />';
 						default:

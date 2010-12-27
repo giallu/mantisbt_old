@@ -195,7 +195,7 @@ echo '<tr>';
 echo '<td class="form-title" colspan="6">', lang_get( 'bug_view_title' ), '</td>';
 echo '</tr>';
 
-echo '<tr><td class="print-spacer" colspan="6"><hr size="1" /></td></tr>';
+echo '<tr><td class="print-spacer" colspan="6"><hr /></td></tr>';
 
 if ( $tpl_show_id || $tpl_show_project || $tpl_show_category || $tpl_show_view_state ||
 	 $tpl_show_date_submitted || $tpl_show_last_updated ) {
@@ -217,7 +217,7 @@ if ( $tpl_show_id || $tpl_show_project || $tpl_show_category || $tpl_show_view_s
 	echo '<td class="print">', $tpl_last_updated, '</td>';
 	echo '</tr>';
 
-	echo '<tr><td class="print-spacer" colspan="6"><hr size="1" /></td></tr>';
+	echo '<tr><td class="print-spacer" colspan="6"><hr /></td></tr>';
 }
 
 #
@@ -230,7 +230,7 @@ if ( $tpl_show_reporter ) {
 	echo '<td class="print">';
 	print_user_with_subject( $tpl_bug->reporter_id, $f_bug_id );
 	echo '</td>';
-	echo '<td class="print" colspan="4">&nbsp;</td>';
+	echo '<td class="print" colspan="4">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -259,7 +259,7 @@ if ( $tpl_show_handler || $tpl_show_due_date ) {
 		$t_spacer += 2;
 	}
 
-	echo '<td class="print" colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td class="print" colspan="', $t_spacer, '">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -294,7 +294,7 @@ if ( $tpl_show_priority || $tpl_show_severity || $tpl_show_reproducibility ) {
 	}
 
 	if ( $t_spacer > 0 ) {
-		echo '<td class="print" colspan="', $t_spacer, '">&nbsp;</td>';
+		echo '<td class="print" colspan="', $t_spacer, '">&#160;</td>';
 	}
 
 	echo '</tr>';
@@ -323,7 +323,7 @@ if ( $tpl_show_status || $tpl_show_resolution ) {
 		$t_spacer += 2;
 	}
 
-	echo '<td class="print" colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td class="print" colspan="', $t_spacer, '">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -350,7 +350,7 @@ if ( $tpl_show_projection || $tpl_show_eta ) {
 		$t_spacer += 2;
 	}
 
-	echo '<td class="print" colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td class="print" colspan="', $t_spacer, '">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -385,7 +385,7 @@ if ( $tpl_show_platform || $tpl_show_os || $tpl_show_os_version ) {
 	}
 
 	if ( $t_spacer > 0 ) {
-		echo '<td class="print" colspan="', $t_spacer, '">&nbsp;</td>';
+		echo '<td class="print" colspan="', $t_spacer, '">&#160;</td>';
 	}
 
 	echo '</tr>';
@@ -414,7 +414,7 @@ if ( $tpl_show_product_version || $tpl_show_product_build ) {
 		$t_spacer += 2;
 	}
 
-	echo '<td class="print" colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td class="print" colspan="', $t_spacer, '">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -441,7 +441,7 @@ if ( $tpl_show_target_version || $tpl_show_fixed_in_version ) {
 		$t_spacer += 2;
 	}
 
-	echo '<td class="print" colspan="', $t_spacer, '">&nbsp;</td>';
+	echo '<td class="print" colspan="', $t_spacer, '">&#160;</td>';
 	echo '</tr>';
 }
 
@@ -461,7 +461,7 @@ foreach( $t_related_custom_field_ids as $t_id ) {
 	echo '</tr>';
 }       // foreach
 
-echo '<tr><td class="print-spacer" colspan="6"><hr size="1" /></td></tr>';
+echo '<tr><td class="print-spacer" colspan="6"><hr /></td></tr>';
 
 if ( $tpl_show_summary ) {
 	echo '<tr class="print">';
@@ -525,20 +525,20 @@ if ( $tpl_show_attachments ) {
 		$c_filesize = number_format( $t_attachment['size'] );
 		$c_date_added = date( config_get( 'normal_date_format' ), $t_attachment['date_added'] );
 		if ( isset( $t_attachment['icon'] ) ) {
-			echo '<img src="', $t_attachment['icon']['url'], '" alt="', $t_attachment['icon']['alt'], '" />&nbsp;';
+			echo '<img src="', $t_attachment['icon']['url'], '" alt="', $t_attachment['icon']['alt'], '" />&#160;';
 		}
 
 		echo "$c_filename ($c_filesize) <span class=\"italic\">$c_date_added</span><br />$c_download_url";
 
 		if ( $t_attachment['preview'] && $t_attachment['type'] == 'image' ) {
-			echo '<br /><img src="', $t_attachment['download_url'], '" alt="', $t_attachment['alt'], '" border="0" /><br />';
+			echo '<br /><img src="', $t_attachment['download_url'], '" alt="', $t_attachment['alt'], '" /><br />';
 		}
 	}
 
 	echo '</td></tr>';
 }
 
-echo '<tr><td class="print-spacer" colspan="6"><hr size="1" /></td></tr>';
+echo '<tr><td class="print-spacer" colspan="6"><hr /></td></tr>';
 
 # ISSUE HISTORY
 echo '<tr><th class="form-title">', lang_get( 'bug_history' ), '</th></tr>';
@@ -567,3 +567,6 @@ define( 'PRINT_BUGNOTE_INC_ALLOW', true );
 include( dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'print_bugnote_inc.php' ) ;
 
 last_visited_issue( $f_bug_id );
+
+html_body_end();
+html_end();

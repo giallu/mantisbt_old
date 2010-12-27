@@ -85,7 +85,7 @@ if ( $t_show_sponsorships ) {
 <table class="width100" cellspacing="1">
 	<tr>
 		<td width="50" rowspan="3">
-			<img src="images/dollars.gif" alt="<?php echo lang_get( 'sponsor_verb' ) ?>" border="0" />
+			<img src="images/dollars.gif" alt="<?php echo lang_get( 'sponsor_verb' ) ?>" />
 		</td>
 		<td class="form-title" colspan="2">
 		<?php
@@ -95,7 +95,7 @@ if ( $t_show_sponsorships ) {
 
 			$t_details_url = lang_get( 'sponsorship_process_url' );
 			if ( !is_blank( $t_details_url ) ) {
-				echo '&nbsp;[<a href="' . $t_details_url . '" target="_blank">'
+				echo '&#160;[<a href="' . $t_details_url . '" target="_blank">'
 					. lang_get( 'sponsorship_more_info' ) . '</a>]';
 			}
 		?>
@@ -171,7 +171,7 @@ if ( $t_show_sponsorships ) {
 
 			$t_details_url = lang_get( 'sponsorship_process_url' );
 			if ( !is_blank( $t_details_url ) ) {
-				echo '&nbsp;[<a href="' . $t_details_url . '" target="_blank">'
+				echo '&#160;[<a href="' . $t_details_url . '" target="_blank">'
 					. lang_get( 'sponsorship_more_info' ) . '</a>]';
 			}
 
