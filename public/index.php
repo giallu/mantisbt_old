@@ -22,5 +22,28 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
+
+
+// Support for legacy code, idea from:
+// http://www.chrisabernethy.com/zend-framework-legacy-scripts/
+
+$request = new Zend_Controller_Request_Http();
+$docroot = $request->get('DOCUMENT_ROOT');
+$uri = $request->getPathInfo();
+    
+if ($uri == '/' ) $uri = '/index.php';
+
+if (is_file($docroot . '/../legacy'. $uri)) {
+    ob_start();
+    include $docroot. '/../legacy' . $uri;
+
+    $response = new Zend_Controller_Response_Http();
+    $response->setBody(ob_get_clean());
+    $response->sendResponse();
+
+    exit;
+
+}
+
 $application->bootstrap()
             ->run();
