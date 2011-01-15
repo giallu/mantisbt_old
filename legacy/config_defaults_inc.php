@@ -182,7 +182,7 @@ $g_class_path = $g_core_path . 'classes' . DIRECTORY_SEPARATOR;
  * absolute path to library files. Requires trailing / or \
  * @global string $g_library_path
  */
-$g_library_path = $g_absolute_path . 'library' . DIRECTORY_SEPARATOR;
+$g_library_path = '../library/';
 
 /**
  * absolute path to language files. Requires trailing / or \
