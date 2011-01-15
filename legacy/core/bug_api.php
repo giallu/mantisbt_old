@@ -20,7 +20,7 @@
  * @package CoreAPI
  * @subpackage BugAPI
  * @copyright Copyright (C) 2000 - 2002  Kenzaburo Ito - kenito@300baud.org
- * @copyright Copyright (C) 2002 - 2010  MantisBT Team - mantisbt-dev@lists.sourceforge.net
+ * @copyright Copyright (C) 2002 - 2011  MantisBT Team - mantisbt-dev@lists.sourceforge.net
  * @link http://www.mantisbt.org
  *
  * @uses access_api.php
@@ -1085,6 +1085,36 @@ function bug_copy( $p_bug_id, $p_target_project_id = null, $p_copy_custom_fields
 	}
 
 	return $t_new_bug_id;
+}
+
+/**
+ * Moves an issue from a project to another.
+ * @todo Validate with sub-project / category inheritance scenarios.
+ * @todo Fix #11687: Bugs with attachments that are moved will lose attachments.
+ * @param int p_bug_id The bug to be moved.
+ * @param int p_target_project_id The target project to move the bug to.
+ * @access public
+ */
+function bug_move( $p_bug_id, $p_target_project_id ) {
+	// Move the issue to the new project.
+	bug_set_field( $p_bug_id, 'project_id', $p_target_project_id );
+
+	// Check if the category for the issue is global or not.
+	$t_category_id = bug_get_field( $p_bug_id, 'category_id' );
+	$t_category_project_id = category_get_field( $t_category_id, 'project_id' );
+
+	// If not global, then attempt mapping it to the new project.
+	if ( $t_category_project_id != ALL_PROJECTS ) {
+		// Map by name
+		$t_category_name = category_get_field( $t_category_id, 'name' );
+		$t_target_project_category_id = category_get_id_by_name( $t_category_name, $p_target_project_id, /* triggerErrors */ false );
+		if ( $t_target_project_category_id === false ) {
+			// Use default category after moves, since there is no match by name.
+			$t_target_project_category_id = config_get( 'default_category_for_moves' );
+		}
+
+		bug_set_field( $p_bug_id, 'category_id', $t_target_project_category_id );
+	}
 }
 
 /**

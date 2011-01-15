@@ -53,7 +53,7 @@
  * @package CoreAPI
  * @subpackage HTMLAPI
  * @copyright Copyright (C) 2000 - 2002  Kenzaburo Ito - kenito@300baud.org
- * @copyright Copyright (C) 2002 - 2010  MantisBT Team - mantisbt-dev@lists.sourceforge.net
+ * @copyright Copyright (C) 2002 - 2011  MantisBT Team - mantisbt-dev@lists.sourceforge.net
  * @link http://www.mantisbt.org
  *
  * @uses access_api.php
@@ -624,7 +624,7 @@ function html_footer( $p_file = null ) {
 	$t_copyright_years = '';
 	if ( config_get( 'show_version' ) ) {
 		$t_version_suffix = htmlentities( ' ' . MANTIS_VERSION . config_get_global( 'version_suffix' ) );
-		$t_copyright_years = ' 2000 - 2010';
+		$t_copyright_years = ' 2000 - 2011';
 	}
 	echo "\t<address id=\"mantisbt-copyright\">Powered by <a href=\"http://www.mantisbt.org\" title=\"Mantis Bug Tracker: a free and open source web based bug tracking system.\">Mantis Bug Tracker</a> (MantisBT)$t_version_suffix. Copyright &copy;$t_copyright_years MantisBT contributors. Licensed under the terms of the <a href=\"http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\" title=\"GNU General Public License (GPL) version 2\">GNU General Public License (GPL) version 2</a> or a later version.</address>\n";
 
@@ -1558,8 +1558,6 @@ function html_button_bug_assign_to( $p_bug_id ) {
  * @return null
  */
 function html_button_bug_move( $p_bug_id ) {
-	$t_status = bug_get_field( $p_bug_id, 'status' );
-
 	if( access_has_bug_level( config_get( 'move_bug_threshold' ), $p_bug_id ) ) {
 		html_button( 'bug_actiongroup_page.php', lang_get( 'move_bug_button' ), array( 'bug_arr[]' => $p_bug_id, 'action' => 'MOVE' ) );
 	}
@@ -1728,18 +1726,15 @@ function html_buttons_view_bug_page( $p_bug_id ) {
 		echo '</td>';
 	}
 
-	if( !$t_readonly ) {
+	# MOVE button
+	echo '<td class="center">';
+	html_button_bug_move( $p_bug_id );
+	echo '</td>';
 
-		# MOVE button
-		echo '<td class="center">';
-		html_button_bug_move( $p_bug_id );
-		echo '</td>';
-
-		# DELETE button
-		echo '<td class="center">';
-		html_button_bug_delete( $p_bug_id );
-		echo '</td>';
-	}
+	# DELETE button
+	echo '<td class="center">';
+	html_button_bug_delete( $p_bug_id );
+	echo '</td>';
 
 	helper_call_custom_function( 'print_bug_view_page_custom_buttons', array( $p_bug_id ) );
 

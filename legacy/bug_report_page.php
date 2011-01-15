@@ -19,7 +19,7 @@
  *
  * @package MantisBT
  * @copyright Copyright (C) 2000 - 2002  Kenzaburo Ito - kenito@300baud.org
- * @copyright Copyright (C) 2002 - 2010  MantisBT Team - mantisbt-dev@lists.sourceforge.net
+ * @copyright Copyright (C) 2002 - 2011  MantisBT Team - mantisbt-dev@lists.sourceforge.net
  * @link http://www.mantisbt.org
  *
  * @uses core.php
@@ -531,12 +531,11 @@ print_recently_visited();
 		<td>
 			<label><input <?php echo helper_get_tab_index() ?> type="radio" name="view_state" value="<?php echo VS_PUBLIC ?>" <?php check_checked( $f_view_state, VS_PUBLIC ) ?> /> <?php echo lang_get( 'public' ) ?></label>
 			<label><input <?php echo helper_get_tab_index() ?> type="radio" name="view_state" value="<?php echo VS_PRIVATE ?>" <?php check_checked( $f_view_state, VS_PRIVATE ) ?> /> <?php echo lang_get( 'private' ) ?></label>
-	<?php
-		}
-	?>
 		</td>
 	</tr>
-<?php //Relationship (in case of cloned bug creation...)
+	<?php
+	}
+	//Relationship (in case of cloned bug creation...)
 	if( $f_master_bug_id > 0 ) {
 ?>
 	<tr <?php echo helper_alternate_class() ?>>

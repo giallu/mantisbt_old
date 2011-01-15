@@ -20,7 +20,7 @@
  *
  * @package MantisBT
  * @copyright Copyright (C) 2000 - 2002  Kenzaburo Ito - kenito@300baud.org
- * @copyright Copyright (C) 2002 - 2010  MantisBT Team - mantisbt-dev@lists.sourceforge.net
+ * @copyright Copyright (C) 2002 - 2011  MantisBT Team - mantisbt-dev@lists.sourceforge.net
  * @link http://www.mantisbt.org
  *
  * @uses access_api.php
@@ -224,7 +224,7 @@ $tpl_resolution = $tpl_show_resolution ? string_display_line( get_enum_element( 
 $tpl_show_summary = in_array( 'summary', $t_fields );
 $tpl_show_description = in_array( 'description', $t_fields );
 
-$tpl_summary = $tpl_show_summary ? string_display_line_links( bug_format_summary( $f_bug_id, SUMMARY_FIELD ) ) : '';
+$tpl_summary = $tpl_show_summary ? bug_format_summary( $f_bug_id, SUMMARY_FIELD ) : '';
 $tpl_description = $tpl_show_description ? string_display_links( $tpl_bug->description ) : '';
 $tpl_steps_to_reproduce = $tpl_show_steps_to_reproduce ? string_display_links( $tpl_bug->steps_to_reproduce ) : '';
 $tpl_additional_information = $tpl_show_additional_information ? string_display_links( $tpl_bug->additional_information ) : '';

@@ -28,7 +28,7 @@
  *
  * @package MantisBT
  * @copyright Copyright (C) 2000 - 2002  Kenzaburo Ito - kenito@300baud.org
- * @copyright Copyright (C) 2002 - 2010  MantisBT Team - mantisbt-dev@lists.sourceforge.net
+ * @copyright Copyright (C) 2002 - 2011  MantisBT Team - mantisbt-dev@lists.sourceforge.net
  * @link http://www.mantisbt.org
  */
 
@@ -1238,6 +1238,13 @@ $g_default_bug_projection = PROJECTION_NONE;
  * @global int $g_default_bug_eta
  */
 $g_default_bug_eta = ETA_NONE;
+
+/**
+ * Default global category to be used when an issue is moved from a project to another
+ * that doesn't have a category with a matching name.  The default is 1 which is the "General"
+ * category that is created in the default database.
+ */
+$g_default_category_for_moves = 1;
 
 /**
  *
