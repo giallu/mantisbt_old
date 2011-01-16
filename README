@@ -1,0 +1,53 @@
+ManZen 
+======
+
+**An experiment about porting Mantis to Zend Framework**
+
+
+What's this?
+------------
+
+This branch contains a Zend based project to wrap the original Mantis code.
+The goal is to start working with Zend for new classes and gradually move
+old code and pages to use Zend based code.
+
+Longer term, we could eventually replace all legacy files and release a Zend 
+based Mantis 3.0!
+
+
+Installation
+------------
+
+To use the ManZen branch, please download the Zend library (the "Minimal"
+variant is just fine) from:
+http://framework.zend.com/download/latest
+
+Then unpack the archive and copy (or symlink) the library/Zend directory
+into the mantisbt/library directory or in any path in your php_include_path.
+
+
+License
+-------
+
+The default license for new code is the ISC License, a BSD variant with a 
+shorter text; here is the template:
+
+
+Copyright (c) Year(s), Company or Person's Name <E-mail address>
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+
+However, all the legacy code is still licensed as GPLv2; this makes the
+collective work GPLv2; please refer to each file's header to be sure about
+licensing terms.
